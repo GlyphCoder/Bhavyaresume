@@ -736,7 +736,7 @@
         </div>
     </section>
 
-    <!-- Experience and Achievements Section with separate buttons -->
+    <!-- Experience and Achievements Section with single Link button -->
     <section class="work-section container py-5" data-aos="fade-up">
         <div class="work-container">
             <h2 class="section-title text-center mb-4" data-aos="fade-down">Experience and Achievements</h2>
@@ -748,8 +748,7 @@
                     <h3>E-Commerce Platform</h3>
                     <p>Full-stack e-commerce solution with payment integration and admin dashboard.</p>
                     <div class="project-buttons">
-                        <a href="https://your-ecommerce-demo.com" target="_blank" class="btn-glass">Live Demo</a>
-                        <a href="https://github.com/" target="_blank" class="btn-glass">GitHub</a>
+                        <a href="https://your-ecommerce-demo.com" target="_blank" class="btn-glass">Link</a>
                     </div>
                 </div>
 
@@ -760,8 +759,7 @@
                     <h3>Data Analytics Tool</h3>
                     <p>Interactive dashboard for data visualization and business intelligence.</p>
                     <div class="project-buttons">
-                        <a href="https://your-analytics-demo.com" target="_blank" class="btn-glass">Live Demo</a>
-                        <a href="https://github.com/" target="_blank" class="btn-glass">GitHub</a>
+                        <a href="https://your-analytics-demo.com" target="_blank" class="btn-glass">Link</a>
                     </div>
                 </div>
 
@@ -772,8 +770,7 @@
                     <h3>Mobile Task Manager</h3>
                     <p>Cross-platform productivity app with real-time synchronization.</p>
                     <div class="project-buttons">
-                        <a href="https://your-mobile-app-demo.com" target="_blank" class="btn-glass">Live Demo</a>
-                        <a href="https://github.com/" target="_blank" class="btn-glass">GitHub</a>
+                        <a href="https://your-mobile-app-demo.com" target="_blank" class="btn-glass">Link</a>
                     </div>
                 </div>
             </div>
@@ -820,6 +817,8 @@
             if (window.location.hash) {
                 // Remove hash from URL without scrolling
                 history.replaceState(null, null, ' ');
+                // Scroll to top of page
+                window.scrollTo(0, 0);
             }
             
             // Initialize AOS with better settings
@@ -874,6 +873,16 @@
                     transform: 'scale(1)' 
                 }, 100);
             });
+        });
+        
+        // Additional fix for page refresh issue
+        window.addEventListener('load', function() {
+            if (window.location.hash) {
+                // Remove the hash from the URL
+                history.replaceState(null, null, ' ');
+                // Scroll to top
+                window.scrollTo(0, 0);
+            }
         });
     </script>
 </body>
