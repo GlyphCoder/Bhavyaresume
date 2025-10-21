@@ -40,7 +40,7 @@
                 radial-gradient(circle at 40% 40%, rgba(135, 206, 250, 0.03) 0%, transparent 50%);
         }
 
-        /* Fog Animation Styles */
+        /* Fog Animation Styles - REDUCED OPACITY BY 30% */
         .fogwrapper {
             height: 100%;
             position: fixed;
@@ -87,52 +87,52 @@
             background: url("https://raw.githubusercontent.com/danielstuart14/CSS_FOG_ANIMATION/master/fog2.png") center center/cover no-repeat transparent;
         }
 
-        /* Fog Animation Keyframes */
+        /* Fog Animation Keyframes - REDUCED OPACITY BY 30% */
         @-webkit-keyframes foglayer_01_opacity {
-            0% { opacity: .1; }
-            22% { opacity: .5; }
-            40% { opacity: .28; }
-            58% { opacity: .4; }
-            80% { opacity: .16; }
-            100% { opacity: .1; }
+            0% { opacity: .07; }
+            22% { opacity: .35; }
+            40% { opacity: .20; }
+            58% { opacity: .28; }
+            80% { opacity: .11; }
+            100% { opacity: .07; }
         }
         @keyframes foglayer_01_opacity {
-            0% { opacity: .1; }
-            22% { opacity: .5; }
-            40% { opacity: .28; }
-            58% { opacity: .4; }
-            80% { opacity: .16; }
-            100% { opacity: .1; }
+            0% { opacity: .07; }
+            22% { opacity: .35; }
+            40% { opacity: .20; }
+            58% { opacity: .28; }
+            80% { opacity: .11; }
+            100% { opacity: .07; }
         }
 
         @-webkit-keyframes foglayer_02_opacity {
-            0% { opacity: .5; }
-            25% { opacity: .2; }
-            50% { opacity: .1; }
-            80% { opacity: .3; }
-            100% { opacity: .5; }
+            0% { opacity: .35; }
+            25% { opacity: .14; }
+            50% { opacity: .07; }
+            80% { opacity: .21; }
+            100% { opacity: .35; }
         }
         @keyframes foglayer_02_opacity {
-            0% { opacity: .5; }
-            25% { opacity: .2; }
-            50% { opacity: .1; }
-            80% { opacity: .3; }
-            100% { opacity: .5; }
+            0% { opacity: .35; }
+            25% { opacity: .14; }
+            50% { opacity: .07; }
+            80% { opacity: .21; }
+            100% { opacity: .35; }
         }
 
         @-webkit-keyframes foglayer_03_opacity {
-            0% { opacity: .8 }
-            27% { opacity: .2; }
-            52% { opacity: .6; }
-            68% { opacity: .3; }
-            100% { opacity: .8; }
+            0% { opacity: .56 }
+            27% { opacity: .14; }
+            52% { opacity: .42; }
+            68% { opacity: .21; }
+            100% { opacity: .56; }
         }
         @keyframes foglayer_03_opacity {
-            0% { opacity: .8; }
-            27% { opacity: .2; }
-            52% { opacity: .6; }
-            68% { opacity: .3; }
-            100% { opacity: .8; }
+            0% { opacity: .56; }
+            27% { opacity: .14; }
+            52% { opacity: .42; }
+            68% { opacity: .21; }
+            100% { opacity: .56; }
         }
 
         @-webkit-keyframes foglayer_moveme {
@@ -214,11 +214,11 @@
             transition: top 0.5s ease-out, left 0.5s ease-out;
         }
 
-        /* Glass Morphism Effect */
+        /* IMPROVED Glass Morphism Effect - More realistic glass */
         .glass-card {
             background: rgba(255, 255, 255, 0.08) !important;
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            backdrop-filter: blur(8px) saturate(180%);
+            -webkit-backdrop-filter: blur(8px) saturate(180%);
             border: 1px solid rgba(255, 255, 255, 0.18);
             border-radius: 15px;
             padding: 30px;
@@ -260,7 +260,6 @@
         }
 
         /* Hero Section - FIXED TO TAKE FULL VIEWPORT */
-        /* Hero Section - FIXED POSITIONING */
         .hero-section {
             height: 100vh;
             min-height: 100vh;
@@ -269,7 +268,7 @@
             justify-content: flex-end;
             align-items: flex-end;
             position: relative;
-            z-index: 2; /* Increased z-index */
+            z-index: 2;
             overflow: hidden;
         }
 
@@ -737,7 +736,7 @@
         </div>
     </section>
 
-    <!-- Experience and Achievements Section with separate buttons -->
+    <!-- Experience and Achievements Section with single Link button -->
     <section class="work-section container py-5" data-aos="fade-up">
         <div class="work-container">
             <h2 class="section-title text-center mb-4" data-aos="fade-down">Experience and Achievements</h2>
@@ -749,8 +748,7 @@
                     <h3>E-Commerce Platform</h3>
                     <p>Full-stack e-commerce solution with payment integration and admin dashboard.</p>
                     <div class="project-buttons">
-                        <a href="https://your-ecommerce-demo.com" target="_blank" class="btn-glass">Live Demo</a>
-                        <a href="https://github.com/" target="_blank" class="btn-glass">GitHub</a>
+                        <a href="https://your-ecommerce-demo.com" target="_blank" class="btn-glass">Link</a>
                     </div>
                 </div>
 
@@ -761,8 +759,7 @@
                     <h3>Data Analytics Tool</h3>
                     <p>Interactive dashboard for data visualization and business intelligence.</p>
                     <div class="project-buttons">
-                        <a href="https://your-analytics-demo.com" target="_blank" class="btn-glass">Live Demo</a>
-                        <a href="https://github.com/" target="_blank" class="btn-glass">GitHub</a>
+                        <a href="https://your-analytics-demo.com" target="_blank" class="btn-glass">Link</a>
                     </div>
                 </div>
 
@@ -773,8 +770,7 @@
                     <h3>Mobile Task Manager</h3>
                     <p>Cross-platform productivity app with real-time synchronization.</p>
                     <div class="project-buttons">
-                        <a href="https://your-mobile-app-demo.com" target="_blank" class="btn-glass">Live Demo</a>
-                        <a href="https://github.com/" target="_blank" class="btn-glass">GitHub</a>
+                        <a href="https://your-mobile-app-demo.com" target="_blank" class="btn-glass">Link</a>
                     </div>
                 </div>
             </div>
@@ -817,6 +813,14 @@
     <script>
         // jQuery ready function
         $(document).ready(function() {
+            // Fix for page refresh - scroll to top when page loads
+            if (window.location.hash) {
+                // Remove hash from URL without scrolling
+                history.replaceState(null, null, ' ');
+                // Scroll to top of page
+                window.scrollTo(0, 0);
+            }
+            
             // Initialize AOS with better settings
             AOS.init({
                 duration: 1200,
@@ -869,6 +873,16 @@
                     transform: 'scale(1)' 
                 }, 100);
             });
+        });
+        
+        // Additional fix for page refresh issue
+        window.addEventListener('load', function() {
+            if (window.location.hash) {
+                // Remove the hash from the URL
+                history.replaceState(null, null, ' ');
+                // Scroll to top
+                window.scrollTo(0, 0);
+            }
         });
     </script>
 </body>
