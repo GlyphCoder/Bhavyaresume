@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bhavya Shah - Engineer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Raleway:wght@300;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    
+    <style>
+        /* General Styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            font-family: 'Montserrat', sans-serif;
+            color: white;
+            background-color: #333;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Base Background Layer */
+        .base-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -3;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(136, 206, 235, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(173, 216, 230, 0.04) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(135, 206, 250, 0.03) 0%, transparent 50%);
+        }
+
+        /* Fog Animation Styles - REDUCED OPACITY BY 30% */
+        .fogwrapper {
+            height: 100%;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 5;
+            pointer-events: none;
+            -webkit-filter: blur(1px) grayscale(0.2) saturate(1.2) sepia(0.2);
+            filter: blur(1px) grayscale(0.2) saturate(1.2) sepia(0.2);
+        }
+
+        #foglayer_01, #foglayer_02, #foglayer_03 {
+            height: 100%;
+            position: absolute;
+            width: 200%;
+        }
+
+        #foglayer_01 .image01, #foglayer_01 .image02,
+        #foglayer_02 .image01, #foglayer_02 .image02,
+        #foglayer_03 .image01, #foglayer_03 .image02 {
+            float: left;
+            height: 100%;
+            width: 50%;
+        }
+
+        #foglayer_01 {
+            -webkit-animation: foglayer_01_opacity 10s linear infinite, foglayer_moveme 15s linear infinite;
+            -moz-animation: foglayer_01_opacity 10s linear infinite, foglayer_moveme 15s linear infinite;
+            animation: foglayer_01_opacity 10s linear infinite, foglayer_moveme 15s linear infinite;
+        }
+
+        #foglayer_02, #foglayer_03 {
+            -webkit-animation: foglayer_02_opacity 21s linear infinite, foglayer_moveme 13s linear infinite;
+            -moz-animation: foglayer_02_opacity 21s linear infinite, foglayer_moveme 13s linear infinite;
+            animation: foglayer_02_opacity 21s linear infinite, foglayer_moveme 13s linear infinite;
+        }
+
+        #foglayer_01 .image01, #foglayer_01 .image02 {
+            background: url("https://raw.githubusercontent.com/danielstuart14/CSS_FOG_ANIMATION/master/fog1.png") center center/cover no-repeat transparent;
+        }
+
+        #foglayer_02 .image01, #foglayer_02 .image02,
+        #foglayer_03 .image01, #foglayer_03 .image02{
+            background: url("https://raw.githubusercontent.com/danielstuart14/CSS_FOG_ANIMATION/master/fog2.png") center center/cover no-repeat transparent;
+        }
+
+        /* Fog Animation Keyframes - REDUCED OPACITY BY 30% */
+        @-webkit-keyframes foglayer_01_opacity {
+            0% { opacity: .07; }
+            22% { opacity: .35; }
+            40% { opacity: .20; }
+            58% { opacity: .28; }
+            80% { opacity: .11; }
+            100% { opacity: .07; }
+        }
+        @keyframes foglayer_01_opacity {
+            0% { opacity: .07; }
+            22% { opacity: .35; }
+            40% { opacity: .20; }
+            58% { opacity: .28; }
+            80% { opacity: .11; }
+            100% { opacity: .07; }
+        }
+
+        @-webkit-keyframes foglayer_02_opacity {
+            0% { opacity: .35; }
+            25% { opacity: .14; }
+            50% { opacity: .07; }
+            80% { opacity: .21; }
+            100% { opacity: .35; }
+        }
+        @keyframes foglayer_02_opacity {
+            0% { opacity: .35; }
+            25% { opacity: .14; }
+            50% { opacity: .07; }
+            80% { opacity: .21; }
+            100% { opacity: .35; }
+        }
+
+        @-webkit-keyframes foglayer_03_opacity {
+            0% { opacity: .56 }
+            27% { opacity: .14; }
+            52% { opacity: .42; }
+            68% { opacity: .21; }
+            100% { opacity: .56; }
+        }
+        @keyframes foglayer_03_opacity {
+            0% { opacity: .56; }
+            27% { opacity: .14; }
+            52% { opacity: .42; }
+            68% { opacity: .21; }
+            100% { opacity: .56; }
+        }
+
+        @-webkit-keyframes foglayer_moveme {
+            0% { left: 0; }
+            100% { left: -100%; }
+        }
+        @keyframes foglayer_moveme {
+            0% { left: 0; }
+            100% { left: -100%; }
+        }
+
+        /* Fixed Button Container */
+        .button-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 15px;
+        }
+
+        /* Download Resume Button */
+        .download-resume {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .download-resume:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            transform: translateY(-2px);
+        }
+
+        /* Contact Me Button */
+        .contact-me {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .contact-me:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            transform: translateY(-2px);
+        }
+
+        /* Spotlight Effect */
+        .spotlight {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            pointer-events: none;
+            background: radial-gradient(circle, rgb(246, 246, 246) 0%, rgba(211, 211, 211, 0.5) 40%, transparent 100%);
+            mix-blend-mode: color-dodge;
+            border-radius: 50%;
+            transform: translate(-60%, -60%);
+            z-index: 9999;
+            transition: top 0.5s ease-out, left 0.5s ease-out;
+        }
+
+        /* IMPROVED Glass Morphism Effect - More realistic glass */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.08) !important;
+            backdrop-filter: blur(8px) saturate(180%);
+            -webkit-backdrop-filter: blur(8px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                inset 0 0 20px rgba(255, 255, 255, 0.05);
+            transition: all 0.4s ease;
+            text-decoration: none !important;
+            color: inherit;
+            z-index: 10;
+            position: relative;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15),
+                inset 0 0 30px rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.12) !important;
+            text-decoration: none !important;
+            color: inherit;
+        }
+
+        .glass-card.hovered {
+            background: rgba(255, 255, 255, 0.12) !important;
+            border-color: rgba(255, 255, 255, 0.25);
+        }
+
+        /* Section Container */
+        section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Hero Section - FIXED TO TAKE FULL VIEWPORT */
+        .hero-section {
+            height: 100vh;
+            min-height: 100vh;
+            background-image: linear-gradient(black, #333);
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-end;
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            text-align: right;
+            cursor: pointer;
+            width: 100%;
+            padding-bottom: 100px;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            color: #fff;
+            margin: 0 100px;
+            white-space: nowrap;
+            transition: transform 0.3s ease;
+        }
+
+        .hero-content h1:hover {
+            transform: scale(1.05);
+        }
+
+        /* About Section */
+        .about-section {
+            padding: 80px 20px;
+        }
+
+        .about-section h1 {
+            font-size: 3rem;
+            margin-bottom: 60px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .about-cards {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .about {
+            flex: 1;
+        }
+
+        .about img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 0px;
+            -webkit-mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent),
+                                linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+            mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent),
+                        linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+            -webkit-mask-composite: source-in;
+            mask-composite: intersect;
+        }
+
+        .about p {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Skills Section */
+        .skill-title {
+            font-size: 3rem;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            align-items: stretch;
+            justify-items: center;
+        }
+
+        .skill-item {
+            transition: transform 0.3s ease-in-out;
+            width: 100%;
+            max-width: 350px;
+            min-height: 400px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .skill-item:hover {
+            transform: scale(1.05);
+        }
+
+        .skill-item.expanded {
+            transform: scale(1.1);
+            z-index: 10;
+        }
+
+        .skill-image {
+            overflow: hidden;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            height: 200px;
+            flex-shrink: 0;
+        }
+
+        .skill-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease-in-out;
+            -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+            mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+        }
+
+        .skill-item:hover .skill-image img {
+            transform: scale(1.1);
+        }
+
+        .skill-item h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .skill-item p {
+            font-size: 0.9rem;
+            color: #bbb;
+            flex-grow: 1;
+        }
+
+        /* Work Section */
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            align-items: stretch;
+            justify-items: center;
+        }
+
+        .work-item {
+            transition: transform 0.3s ease-in-out;
+            width: 100%;
+            max-width: 350px;
+            min-height: 400px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .work-item:hover {
+            transform: scale(1.05);
+        }
+
+        .work-item.expanded {
+            transform: scale(1.1);
+            z-index: 10;
+        }
+
+        .work-image {
+            overflow: hidden;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            height: 200px;
+            flex-shrink: 0;
+        }
+
+        .work-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease-in-out;
+            -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+            mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+        }
+
+        .work-item:hover .work-image img {
+            transform: scale(1.1);
+        }
+
+        .work-item h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .work-item p {
+            font-size: 0.9rem;
+            color: #bbb;
+            flex-grow: 1;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            text-align: center;
+            background-image: linear-gradient(#333, black);
+            padding: 80px 0px;
+            width: 100%;
+            max-width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact-section h2 {
+            font-size: 2rem;
+            margin-bottom: 60px;
+            color: #fff;
+            position: relative;
+            z-index: 15;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 15;
+        }
+
+        /* More transparent glass cards for contact section */
+        .contact-section .glass-card {
+            background: rgba(255, 255, 255, 0.05) !important;
+            backdrop-filter: blur(15px) saturate(160%);
+            -webkit-backdrop-filter: blur(15px) saturate(160%);
+            z-index: 15;
+        }
+
+        .contact-section .glass-card:hover {
+            background: rgba(255, 255, 255, 0.08) !important;
+        }
+
+        .contact-item {
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .contact-item h4 {
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .contact-item a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            padding: 20px;
+            text-align: center;
+            background-color: #222;
+            position: relative;
+            z-index: 15;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            color: #bbb;
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 3rem;
+                margin: 0 20px;
+                white-space: normal;
+                text-align: center;
+            }
+
+            .about-cards, .skill-grid, .work-grid {
+                flex-direction: column;
+            }
+
+            .spotlight {
+                background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(150, 150, 150, 0.5) 50%, transparent 100%);
+            }
+
+            .button-container {
+                top: 10px;
+                right: 10px;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .download-resume, .contact-me {
+                padding: 8px 15px;
+                font-size: 0.8rem;
+            }
+            
+            #foglayer_01 .image01, #foglayer_01 .image02,
+            #foglayer_02 .image01, #foglayer_02 .image02,
+            #foglayer_03 .image01, #foglayer_03 .image02 {
+                width: 100%;
+            }
+
+            section {
+                padding: 60px 20px;
+            }
+            
+            .about-section h1, .skill-title, .section-title, .contact-section h2 {
+                margin-bottom: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .button-container {
+                top: 5px;
+                right: 5px;
+            }
+            
+            .download-resume, .contact-me {
+                padding: 6px 12px;
+                font-size: 0.75rem;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Button Styles for Projects and Experience */
+        .btn-glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.8rem;
+            margin: 0 5px;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .btn-glass:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            transform: translateY(-2px);
+        }
+
+        .project-buttons {
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Base Background Layer -->
+    <div class="base-background"></div>
+
+    <!-- Fog Animation -->
+    <div class="fogwrapper">
+        <div id="foglayer_01" class="fog">
+            <div class="image01"></div>
+            <div class="image02"></div>
+        </div>
+        <div id="foglayer_02" class="fog">
+            <div class="image01"></div>
+            <div class="image02"></div>
+        </div>
+        <div id="foglayer_03" class="fog">
+            <div class="image01"></div>
+            <div class="image02"></div>
+        </div>
+    </div>
+
+    <!-- Fixed Button Container -->
+    <div class="button-container">
+        <!-- Contact Me Button -->
+        <a href="#contact" class="contact-me">
+            Contact Me
+        </a>
+        
+        <!-- Download Resume Button -->
+        <a href="Resume_Bhavyashah.pdf" download="Resume_Bhavyashah.pdf" class="download-resume">
+            Download My Resume
+        </a>
+    </div>
+
+    <!-- Spotlight Effect -->
+    <div class="spotlight"></div>
+
+    <!-- Hero Section -->
+    <header class="hero-section" data-aos="zoom-in">
+        <div class="hero-content">
+            <h1>Hey! I'm <br> Bhavya Shah<br>⇓</h1>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section class="about-section container py-5" data-aos="fade-up">
+        <h1 class="text-center mb-4" data-aos="fade-down">About Me</h1>
+        <div class="about-cards row">
+            <div class="about col-md-6 glass-card d-flex justify-content-center align-items-center" data-aos="fade-right">
+                <img src="IMG_9784.jpg" alt="Profile Picture" class="img-fluid" style="max-height: 100%;">
+            </div>
+            <div class="about col-md-6 glass-card" data-aos="fade-left">
+                <p class="lead">With a strong foundation in Computer Engineering, I love to develop robust applications that solve real-world problems. A software Engineer by heart. An Electronics Hobbyist.</p>
+                <h3 class="mt-4" align="center">Education</h3>
+                <p>Bachelors in Computer Science and Engineering <span style="margin-left: 70px;"></span> 2023-2027
+                <br>Nirma University, Ahmedabad<span style="margin-left: 220px;"></span>CGPA: 8.65</p>
+                <h3 class="mt-4" align="center">Skills</h3>
+                <p>Languages - <language>Python, C, C++, Java, JavaScript, HTML, CSS, SQL, React, Node.js, Express.js, MongoDB, Git, Docker, Kubernetes</language></p>
+                <p>Frameworks/Libraries - <framework>React, Node.js, Express.js, Flask, TensorFlow, Keras, Bootstrap</framework></p>
+                <p>Tools - <tools>Git, Docker, Kubernetes, AWS, Heroku, VS Code, Jupyter Notebook</tools></p>
+                <h3 class="mt-4" align="center">Coursework</h3>
+                <p>Data Structures and Algorithms, Database Management Systems, Operating Systems, Computer Networks, Web Development, Machine Learning, Artificial Intelligence, Software Engineering</p>
+
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section with separate buttons -->
+    <section class="skill-section container py-5" data-aos="fade-up">
+        <div class="skill-container">
+            <h2 class="skill-title text-center mb-4" data-aos="fade-down">Projects</h2>
+            <div class="skill-grid">
+                <div class="skill-item glass-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="skill-image mb-3">
+                        <img src="path/to/your/image1.jpg" alt="Skill Image 1" class="img-fluid rounded">
+                    </div>
+                    <h3>RiskAnalyzer</h3>
+                    <p>Developed a machine learning model and full-stack web application to predict credit default probability
+                    using non-traditional data sources (e.g., mobile usage, utility payments). Built with Python, Flask, and
+                    TensorFlow React, the solution enables lenders to perform rapid and inclusive risk assessments for 'thin-file' customers. Built machine learning models for the application.</p>
+                    <div class="project-buttons">
+                        <a href="https://your-live-demo.com" target="_blank" class="btn-glass">Live Demo</a>
+                        <a href="https://github.com/" target="_blank" class="btn-glass">GitHub</a>
+                    </div>
+                </div>
+
+                <div class="skill-item glass-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="skill-image mb-3">
+                        <img src="path/to/your/image2.jpg" alt="Skill Image 2" class="img-fluid rounded">
+                    </div>
+                    <h3>Machine Learning</h3>
+                    <p>Building intelligent systems using Python, TensorFlow, and various ML algorithms.</p>
+                    <div class="project-buttons">
+                        <a href="https://your-live-demo.com" target="_blank" class="btn-glass">Live Demo</a>
+                        <a href="https://github.com/bhavyashah/ml-projects" target="_blank" class="btn-glass">GitHub</a>
+                    </div>
+                </div>
+
+                <div class="skill-item glass-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="skill-image mb-3">
+                        <img src="path/to/your/image3.jpg" alt="Skill Image 3" class="img-fluid rounded">
+                    </div>
+                    <h3>Mobile Development</h3>
+                    <p>Creating cross-platform mobile applications with React Native and Flutter.</p>
+                    <div class="project-buttons">
+                        <a href="https://your-live-demo.com" target="_blank" class="btn-glass">Live Demo</a>
+                        <a href="https://github.com/bhavyashah/mobile-apps" target="_blank" class="btn-glass">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience and Achievements Section with single Link button -->
+    <section class="work-section container py-5" data-aos="fade-up">
+        <div class="work-container">
+            <h2 class="section-title text-center mb-4" data-aos="fade-down">Experience and Achievements</h2>
+            <div class="work-grid">
+                <div class="work-item glass-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="work-image">
+                        <img src="path/to/your/image1.jpg" alt="Project Image 1" class="img-fluid rounded">
+                    </div>
+                    <h3>E-Commerce Platform</h3>
+                    <p>Full-stack e-commerce solution with payment integration and admin dashboard.</p>
+                    <div class="project-buttons">
+                        <a href="https://your-ecommerce-demo.com" target="_blank" class="btn-glass">Link</a>
+                    </div>
+                </div>
+
+                <div class="work-item glass-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="work-image">
+                        <img src="path/to/your/image2.jpg" alt="Project Image 2" class="img-fluid rounded">
+                    </div>
+                    <h3>Data Analytics Tool</h3>
+                    <p>Interactive dashboard for data visualization and business intelligence.</p>
+                    <div class="project-buttons">
+                        <a href="https://your-analytics-demo.com" target="_blank" class="btn-glass">Link</a>
+                    </div>
+                </div>
+
+                <div class="work-item glass-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="work-image">
+                        <img src="path/to/your/image3.jpg" alt="Project Image 3" class="img-fluid rounded">
+                    </div>
+                    <h3>Mobile Task Manager</h3>
+                    <p>Cross-platform productivity app with real-time synchronization.</p>
+                    <div class="project-buttons">
+                        <a href="https://your-mobile-app-demo.com" target="_blank" class="btn-glass">Link</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section container py-5">
+        <h2 class="text-center mb-4">Contact Me</h2>
+        <div class="contact-grid">
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=bhavya.mehul.shah@gmail.com" class="contact-item glass-card" style="text-decoration: none; color: inherit;">
+                <h4>Mail</h4>
+                <p>Click to gmail</p>
+            </a>
+            
+            <a href="tel:+917016017279" class="contact-item glass-card" style="text-decoration: none; color: inherit;">
+                <h4>Phone</h4>
+                <p>+91 7016017279</p>
+            </a>
+            
+            <a href="https://linkedin.com/in/bhavyamshah" target="_blank" class="contact-item glass-card" style="text-decoration: none; color: inherit;">
+                <h4>LinkedIn</h4>
+                <p>Click to connect</p>
+            </a>
+            
+            <a href="https://github.com/GlyphCoder" target="_blank" class="contact-item glass-card" style="text-decoration: none; color: inherit;">
+                <h4>GitHub</h4>
+                <p>Click to view my work</p>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-white py-3 text-center">
+        <p class="mb-0">© 2025 Bhavya Shah. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // jQuery ready function
+        $(document).ready(function() {
+            // Fix for page refresh - scroll to top when page loads
+            if (window.location.hash) {
+                // Remove hash from URL without scrolling
+                history.replaceState(null, null, '');
+                // Scroll to top of page
+                window.scrollTo(0, 0);
+            }
+            
+            // Initialize AOS with better settings
+            AOS.init({
+                duration: 1200,
+                once: false,
+                mirror: true,
+                offset: 50,
+                delay: 0,
+                easing: 'ease-out-cubic'
+            });
+
+            // Spotlight effect with jQuery
+            $(document).mousemove(function(e) {
+                $('.spotlight').css({
+                    'left': e.clientX + 'px',
+                    'top': e.clientY + 'px'
+                });
+            });
+
+            // Smooth scrolling when clicking on hero title
+            $('.hero-content h1').click(function() {
+                $('html, body').animate({
+                    scrollTop: $('.about-section').offset().top - 70
+                }, 1000);
+            });
+
+            // Enhanced hover effects for glass cards
+            $('.glass-card').hover(
+                function() {
+                    $(this).addClass('hovered');
+                },
+                function() {
+                    $(this).removeClass('hovered');
+                }
+            );
+
+            // Add click animation to download button
+            $('.download-resume').click(function() {
+                $(this).animate({ 
+                    transform: 'scale(0.95)' 
+                }, 100).animate({ 
+                    transform: 'scale(1)' 
+                }, 100);
+            });
+            
+            // Add click animation to contact button
+            $('.contact-me').click(function() {
+                $(this).animate({ 
+                    transform: 'scale(0.95)' 
+                }, 100).animate({ 
+                    transform: 'scale(1)' 
+                }, 100);
+            });
+        });
+        
+        // Additional fix for page refresh issue
+        window.addEventListener('load', function() {
+            if (window.location.hash) {
+                // Remove the hash from the URL
+                history.replaceState(null, null, '');
+                // Scroll to top
+                window.scrollTo(0, 0);
+            }
+        });
+    </script>
+</body>
+</html>
