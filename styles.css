@@ -335,10 +335,13 @@ section {
 
 .skill-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
     align-items: stretch;
     justify-items: center;
+    justify-content: center;
 }
 
 .skill-item {
@@ -405,10 +408,13 @@ section {
 
 .work-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
     align-items: stretch;
     justify-items: center;
+    justify-content: center;
 }
 
 .work-item {
@@ -581,8 +587,13 @@ footer p {
         text-align: center;
     }
 
-    .about-cards, .skill-grid, .work-grid {
+    .about-cards {
         flex-direction: column;
+    }
+
+    .skill-grid, .work-grid {
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 800px;
     }
 
     .spotlight {
@@ -691,6 +702,11 @@ footer p {
     .skill-image, .work-image {
         height: 120px;
         margin-bottom: 10px;
+    }
+
+    .skill-grid, .work-grid {
+        grid-template-columns: 1fr;
+        max-width: 100%;
     }
 
     .contact-grid {
