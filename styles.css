@@ -1,17 +1,177 @@
-/* General Styles */
+/* ===========================
+   General / Reset
+   =========================== */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 body, html {
     margin: 0;
     padding: 0;
     width: 100%;
     font-family: 'Montserrat', sans-serif;
     color: white;
-    background-color: #333;
+    background-color: #0d0d0d;
     scroll-behavior: smooth;
     overflow-x: hidden;
     min-height: 100vh;
 }
 
-/* Base Background Layer */
+/* ===========================
+   Animated Background Canvas
+   =========================== */
+#bg-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    pointer-events: none;
+}
+
+/* ===========================
+   CSS Cloud Layer
+   Soft, slow-drifting ellipses — pure CSS,
+   composited on GPU transform track only
+   =========================== */
+.cloud-layer {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.cloud {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(45px);
+    will-change: transform;
+    animation: cloud-drift linear infinite;
+    opacity: 0;
+}
+
+/* Cloud 1 — bright sky-blue, top strip */
+.cloud-1 {
+    width: 750px;
+    height: 230px;
+    background: radial-gradient(ellipse at center,
+        rgba(99, 179, 237, 0.55) 0%,
+        rgba(99, 179, 237, 0.20) 50%,
+        transparent 100%);
+    top: 8%;
+    left: -30%;
+    animation-duration: 40s;
+    animation-delay: 0s;
+}
+
+/* Cloud 1b — same color, offset for seamless loop */
+.cloud-1b {
+    width: 700px;
+    height: 200px;
+    background: radial-gradient(ellipse at center,
+        rgba(120, 190, 245, 0.45) 0%,
+        rgba(120, 190, 245, 0.15) 50%,
+        transparent 100%);
+    top: 12%;
+    left: -30%;
+    animation-duration: 40s;
+    animation-delay: -20s;
+}
+
+/* Cloud 2 — purple-violet, mid zone */
+.cloud-2 {
+    width: 900px;
+    height: 270px;
+    background: radial-gradient(ellipse at center,
+        rgba(159, 122, 234, 0.50) 0%,
+        rgba(159, 122, 234, 0.18) 50%,
+        transparent 100%);
+    top: 35%;
+    left: -40%;
+    animation-duration: 55s;
+    animation-delay: -10s;
+}
+
+/* Cloud 2b */
+.cloud-2b {
+    width: 850px;
+    height: 250px;
+    background: radial-gradient(ellipse at center,
+        rgba(180, 140, 250, 0.40) 0%,
+        rgba(180, 140, 250, 0.14) 50%,
+        transparent 100%);
+    top: 38%;
+    left: -40%;
+    animation-duration: 55s;
+    animation-delay: -37s;
+}
+
+/* Cloud 3 — cyan-blue, lower zone */
+.cloud-3 {
+    width: 650px;
+    height: 200px;
+    background: radial-gradient(ellipse at center,
+        rgba(100, 210, 255, 0.45) 0%,
+        rgba(100, 210, 255, 0.16) 50%,
+        transparent 100%);
+    top: 65%;
+    left: -25%;
+    animation-duration: 45s;
+    animation-delay: -22s;
+}
+
+/* Cloud 3b */
+.cloud-3b {
+    width: 600px;
+    height: 180px;
+    background: radial-gradient(ellipse at center,
+        rgba(80, 200, 255, 0.38) 0%,
+        rgba(80, 200, 255, 0.12) 50%,
+        transparent 100%);
+    top: 70%;
+    left: -25%;
+    animation-duration: 45s;
+    animation-delay: 0s;
+}
+
+/* Cloud 4 — indigo, near top */
+.cloud-4 {
+    width: 820px;
+    height: 240px;
+    background: radial-gradient(ellipse at center,
+        rgba(99, 130, 240, 0.48) 0%,
+        rgba(99, 130, 240, 0.17) 50%,
+        transparent 100%);
+    top: 22%;
+    left: -35%;
+    animation-duration: 65s;
+    animation-delay: -30s;
+}
+
+/* Cloud 5 — lavender, near bottom */
+.cloud-5 {
+    width: 700px;
+    height: 200px;
+    background: radial-gradient(ellipse at center,
+        rgba(210, 160, 255, 0.42) 0%,
+        rgba(210, 160, 255, 0.14) 50%,
+        transparent 100%);
+    top: 80%;
+    left: -20%;
+    animation-duration: 50s;
+    animation-delay: -15s;
+}
+
+@keyframes cloud-drift {
+    0%   { transform: translateX(0);      opacity: 0; }
+    6%   { opacity: 1; }
+    94%  { opacity: 1; }
+    100% { transform: translateX(145vw);  opacity: 0; }
+}
+
+/* Base background gradient layer */
 .base-background {
     position: fixed;
     top: 0;
@@ -20,240 +180,137 @@ body, html {
     height: 100%;
     pointer-events: none;
     z-index: -3;
-    background: 
-        radial-gradient(circle at 20% 80%, rgba(136, 206, 235, 0.05) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(173, 216, 230, 0.04) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(135, 206, 250, 0.03) 0%, transparent 50%);
+    background:
+        radial-gradient(ellipse at 15% 85%, rgba(99, 179, 237, 0.07) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 15%, rgba(159, 122, 234, 0.06) 0%, transparent 55%),
+        radial-gradient(ellipse at 50% 50%, rgba(49, 130, 206, 0.04) 0%, transparent 60%),
+        linear-gradient(180deg, #0d0d0d 0%, #111827 50%, #0d0d0d 100%);
 }
 
-/* Fog Animation Styles - REDUCED OPACITY BY 30% */
-.fogwrapper {
-    height: 100%;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 5;
-    pointer-events: none;
-    -webkit-filter: blur(1px) grayscale(0.2) saturate(1.2) sepia(0.2);
-    filter: blur(1px) grayscale(0.2) saturate(1.2) sepia(0.2);
-}
-
-#foglayer_01, #foglayer_02, #foglayer_03 {
-    height: 100%;
-    position: absolute;
-    width: 200%;
-}
-
-#foglayer_01 .image01, #foglayer_01 .image02,
-#foglayer_02 .image01, #foglayer_02 .image02,
-#foglayer_03 .image01, #foglayer_03 .image02 {
-    float: left;
-    height: 100%;
-    width: 50%;
-}
-
-#foglayer_01 {
-    -webkit-animation: foglayer_01_opacity 10s linear infinite, foglayer_moveme 15s linear infinite;
-    -moz-animation: foglayer_01_opacity 10s linear infinite, foglayer_moveme 15s linear infinite;
-    animation: foglayer_01_opacity 10s linear infinite, foglayer_moveme 15s linear infinite;
-    will-change: opacity, transform;
-}
-
-#foglayer_02, #foglayer_03 {
-    -webkit-animation: foglayer_02_opacity 21s linear infinite, foglayer_moveme 13s linear infinite;
-    -moz-animation: foglayer_02_opacity 21s linear infinite, foglayer_moveme 13s linear infinite;
-    animation: foglayer_02_opacity 21s linear infinite, foglayer_moveme 13s linear infinite;
-    will-change: opacity, transform;
-}
-
-#foglayer_01 .image01, #foglayer_01 .image02 {
-    background: url("https://raw.githubusercontent.com/danielstuart14/CSS_FOG_ANIMATION/master/fog1.png") center center/cover no-repeat transparent;
-}
-
-#foglayer_02 .image01, #foglayer_02 .image02,
-#foglayer_03 .image01, #foglayer_03 .image02{
-    background: url("https://raw.githubusercontent.com/danielstuart14/CSS_FOG_ANIMATION/master/fog2.png") center center/cover no-repeat transparent;
-}
-
-/* Fog Animation Keyframes - REDUCED OPACITY BY 30% */
-@-webkit-keyframes foglayer_01_opacity {
-    0% { opacity: .07; }
-    22% { opacity: .35; }
-    40% { opacity: .20; }
-    58% { opacity: .28; }
-    80% { opacity: .11; }
-    100% { opacity: .07; }
-}
-@keyframes foglayer_01_opacity {
-    0% { opacity: .07; }
-    22% { opacity: .35; }
-    40% { opacity: .20; }
-    58% { opacity: .28; }
-    80% { opacity: .11; }
-    100% { opacity: .07; }
-}
-
-@-webkit-keyframes foglayer_02_opacity {
-    0% { opacity: .35; }
-    25% { opacity: .14; }
-    50% { opacity: .07; }
-    80% { opacity: .21; }
-    100% { opacity: .35; }
-}
-@keyframes foglayer_02_opacity {
-    0% { opacity: .35; }
-    25% { opacity: .14; }
-    50% { opacity: .07; }
-    80% { opacity: .21; }
-    100% { opacity: .35; }
-}
-
-@-webkit-keyframes foglayer_03_opacity {
-    0% { opacity: .56 }
-    27% { opacity: .14; }
-    52% { opacity: .42; }
-    68% { opacity: .21; }
-    100% { opacity: .56; }
-}
-@keyframes foglayer_03_opacity {
-    0% { opacity: .56; }
-    27% { opacity: .14; }
-    52% { opacity: .42; }
-    68% { opacity: .21; }
-    100% { opacity: .56; }
-}
-
-@-webkit-keyframes foglayer_moveme {
-    0% { left: 0; }
-    100% { left: -100%; }
-}
-@keyframes foglayer_moveme {
-    0% { left: 0; }
-    100% { left: -100%; }
-}
-
-/* Fixed Button Container */
+/* ===========================
+   Fixed Nav Buttons
+   =========================== */
 .button-container {
     position: fixed;
-    top: 20px;
-    right: 20px;
+    top: 14px;
+    right: 14px;
     z-index: 1000;
     display: flex;
-    gap: 15px;
+    gap: 8px;
+    align-items: flex-end;
+    flex-direction: column;
+    max-width: min(260px, calc(100vw - 28px));
 }
 
-/* Download Resume Button */
-.download-resume {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: white;
-    padding: 10px 20px;
-    border-radius: 25px;
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    white-space: nowrap;
-}
-
-.download-resume:hover {
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-    text-decoration: none;
-    transform: translateY(-2px);
-}
-
-/* Contact Me Button */
+.download-resume,
 .contact-me {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
     color: white;
-    padding: 10px 20px;
-    border-radius: 25px;
+    padding: 10px 22px;
+    border-radius: 50px;
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     font-weight: 500;
-    transition: all 0.3s ease;
+    letter-spacing: 0.02em;
+    transition: background 0.3s ease, transform 0.25s ease, border-color 0.3s ease;
     white-space: nowrap;
 }
 
+.download-resume:hover,
 .contact-me:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.18);
     color: white;
     text-decoration: none;
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    border-color: rgba(255, 255, 255, 0.35);
 }
 
-/* Spotlight Effect */
-.spotlight {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 20px;
-    height: 20px;
-    pointer-events: none;
-    background: radial-gradient(circle, rgb(246, 246, 246) 0%, rgba(211, 211, 211, 0.5) 40%, transparent 100%);
-    mix-blend-mode: color-dodge;
-    border-radius: 50%;
-    transform: translate(-60%, -60%);
-    z-index: 9999;
-    transition: top 0.5s ease-out, left 0.5s ease-out;
-}
-
-/* IMPROVED Glass Morphism Effect - More realistic glass */
+/* ===========================
+   Glass Morphism Cards
+   =========================== */
 .glass-card {
-    background: rgba(255, 255, 255, 0.08) !important;
-    backdrop-filter: blur(8px) saturate(180%);
-    -webkit-backdrop-filter: blur(8px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    border-radius: 15px;
-    padding: clamp(15px, 5vw, 30px);
-    box-shadow: 
-        0 8px 32px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1),
-        inset 0 0 20px rgba(255, 255, 255, 0.05);
-    transition: all 0.4s ease;
+    background: rgba(255, 255, 255, 0.06) !important;
+    backdrop-filter: blur(10px) saturate(170%);
+    -webkit-backdrop-filter: blur(10px) saturate(170%);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 18px;
+    padding: clamp(16px, 4vw, 30px);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.09);
+    transition: box-shadow 0.35s ease, border-color 0.35s ease, background 0.35s ease;
     text-decoration: none !important;
     color: inherit;
     z-index: 10;
     position: relative;
-    will-change: transform, box-shadow;
-    backface-visibility: hidden;
+    /* GPU-only compositing - no will-change on transform to save GPU memory */
 }
 
 .glass-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 
-        0 20px 40px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.15),
-        inset 0 0 30px rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.25);
-    background: rgba(255, 255, 255, 0.12) !important;
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.14),
+        0 0 0 1px rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.22);
+    background: rgba(255, 255, 255, 0.10) !important;
     text-decoration: none !important;
     color: inherit;
 }
 
-.glass-card.hovered {
-    background: rgba(255, 255, 255, 0.12) !important;
-    border-color: rgba(255, 255, 255, 0.25);
+/* ===========================
+   3-D Tilt Effect on Cards
+   =========================== */
+/* perspective is set on the card's direct parent via JS; 
+   the card itself gets the transform via JS */
+.tilt-card {
+    transform-style: preserve-3d;
+    transform: perspective(800px) rotateX(0deg) rotateY(0deg);
+    transition: transform 0.12s ease, box-shadow 0.35s ease, border-color 0.35s ease, background 0.35s ease;
 }
 
-/* Section Container */
+/* When the card is being tilted (JS adds .is-tilting) disable the CSS transition 
+   for snappier response, and re-enable on mouse-leave */
+.tilt-card.is-tilting {
+    transition: box-shadow 0.35s ease, border-color 0.35s ease, background 0.35s ease;
+}
+
+.tilt-card .tilt-shine {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border-radius: inherit;
+    pointer-events: none;
+    background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.10) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 20;
+}
+
+.tilt-card:hover .tilt-shine {
+    opacity: 1;
+}
+
+/* ===========================
+   Section Base
+   =========================== */
 section {
-    padding: 80px 20px;
+    padding: 90px 24px;
     max-width: 1200px;
     margin: 0 auto;
     position: relative;
     z-index: 10;
 }
 
-/* Hero Section - FIXED TO TAKE FULL VIEWPORT */
+/* ===========================
+   Hero Section
+   =========================== */
 .hero-section {
     height: 100vh;
-    min-height: 100vh;
-    background-image: linear-gradient(black, #333);
+    min-height: 600px;
+    background-image: linear-gradient(to bottom, #000 0%, #0d0d0d 40%, transparent 100%);
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
@@ -266,108 +323,106 @@ section {
     text-align: right;
     cursor: pointer;
     width: 100%;
-    padding-bottom: 100px;
+    padding: 0 clamp(16px, 6vw, 80px) clamp(60px, 8vh, 110px);
 }
 
 .hero-content h1 {
-    font-size: clamp(1.5rem, 8vw, 4rem);
+    font-size: clamp(1.5rem, 6.5vw, 4.5rem);
     font-weight: 700;
     color: #fff;
-    margin: 0 clamp(10px, 8vw, 100px);
-    white-space: nowrap;
-    transition: transform 0.3s ease;
-    will-change: transform;
-    backface-visibility: hidden;
+    margin: 0;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    transition: transform 0.35s ease;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
 }
 
 .hero-content h1:hover {
-    transform: scale(1.05);
+    transform: scale(1.03);
 }
 
-/* About Section */
+/* ===========================
+   About Section
+   =========================== */
 .about-section {
-    padding: 80px 20px;
+    padding: 90px 24px;
 }
 
 .about-section h1 {
-    font-size: clamp(1.5rem, 6vw, 3rem);
+    font-size: clamp(1.6rem, 5vw, 3rem);
     margin-bottom: clamp(30px, 5vw, 60px);
     text-align: center;
     text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 .about-cards {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 30px;
+    gap: 24px;
 }
 
 .about {
-    flex: 1;
+    flex: 1 1 300px;
+    min-width: 0;
 }
 
 .about img {
     width: 100%;
     height: auto;
-    border-radius: 10px;
-    margin-bottom: 0px;
-    -webkit-mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent),
-                        linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
-    mask-image: linear-gradient(to right, transparent, black 20%, black 80%, transparent),
-                linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+    border-radius: 12px;
+    -webkit-mask-image:
+        linear-gradient(to right, transparent, black 15%, black 85%, transparent),
+        linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+    mask-image:
+        linear-gradient(to right, transparent, black 15%, black 85%, transparent),
+        linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
     -webkit-mask-composite: source-in;
     mask-composite: intersect;
 }
 
 .about p {
-    font-size: clamp(0.85rem, 2.5vw, 1rem);
-    line-height: 1.6;
+    font-size: clamp(0.85rem, 2vw, 1rem);
+    line-height: 1.7;
 }
 
-/* Skills Section */
+/* ===========================
+   Projects (Skill) Section
+   =========================== */
 .skill-title {
-    font-size: clamp(1.5rem, 6vw, 3rem);
+    font-size: clamp(1.6rem, 5vw, 3rem);
     margin-bottom: clamp(30px, 5vw, 60px);
     text-transform: uppercase;
     text-align: center;
+    letter-spacing: 0.05em;
 }
 
 .skill-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
+    gap: 28px;
     max-width: 1400px;
     margin: 0 auto;
     align-items: stretch;
-    justify-items: center;
-    justify-content: center;
+    padding: 0 8px;
 }
 
 .skill-item {
-    transition: transform 0.3s ease-in-out;
     width: 100%;
-    max-width: 350px;
-    min-height: 400px;
+    min-height: 380px;
     height: 100%;
     display: flex;
     flex-direction: column;
-}
-
-.skill-item:hover {
-    transform: scale(1.05);
-}
-
-.skill-item.expanded {
-    transform: scale(1.1);
-    z-index: 10;
 }
 
 .skill-image {
     overflow: hidden;
     border-radius: 10px;
     margin-bottom: 15px;
-    height: 200px;
+    height: 190px;
     flex-shrink: 0;
 }
 
@@ -375,72 +430,62 @@ section {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.3s ease-in-out;
-    -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
-    mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
-    backface-visibility: hidden;
-    will-change: transform;
+    transition: transform 0.4s ease;
+    -webkit-mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
 }
 
 .skill-item:hover .skill-image img {
-    transform: scale(1.1);
+    transform: scale(1.08);
 }
 
 .skill-item h3 {
-    font-size: clamp(1rem, 3vw, 1.2rem);
+    font-size: clamp(0.95rem, 2.5vw, 1.15rem);
     margin-bottom: 10px;
     color: #fff;
 }
 
 .skill-item p {
-    font-size: clamp(0.75rem, 2.2vw, 0.9rem);
-    color: #bbb;
+    font-size: clamp(0.78rem, 1.8vw, 0.9rem);
+    color: #b0b0b0;
     flex-grow: 1;
+    line-height: 1.6;
 }
 
-/* Work Section */
+/* ===========================
+   Work Section
+   =========================== */
 .section-title {
-    font-size: clamp(1.5rem, 6vw, 3rem);
+    font-size: clamp(1.6rem, 5vw, 3rem);
     margin-bottom: clamp(30px, 5vw, 60px);
     text-transform: uppercase;
     text-align: center;
+    letter-spacing: 0.05em;
 }
 
 .work-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
+    gap: 28px;
     max-width: 1400px;
     margin: 0 auto;
     align-items: stretch;
-    justify-items: center;
-    justify-content: center;
+    padding: 0 8px;
 }
 
 .work-item {
-    transition: transform 0.3s ease-in-out;
     width: 100%;
-    max-width: 350px;
-    min-height: 400px;
+    min-height: 380px;
     height: 100%;
     display: flex;
     flex-direction: column;
-}
-
-.work-item:hover {
-    transform: scale(1.05);
-}
-
-.work-item.expanded {
-    transform: scale(1.1);
-    z-index: 10;
 }
 
 .work-image {
     overflow: hidden;
     border-radius: 10px;
     margin-bottom: 15px;
-    height: 200px;
+    height: 190px;
     flex-shrink: 0;
 }
 
@@ -448,34 +493,35 @@ section {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.3s ease-in-out;
-    -webkit-mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
-    mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
-    backface-visibility: hidden;
-    will-change: transform;
+    transition: transform 0.4s ease;
+    -webkit-mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
 }
 
 .work-item:hover .work-image img {
-    transform: scale(1.1);
+    transform: scale(1.08);
 }
 
 .work-item h3 {
-    font-size: clamp(1rem, 3vw, 1.2rem);
+    font-size: clamp(0.95rem, 2.5vw, 1.15rem);
     margin-bottom: 10px;
     color: #fff;
 }
 
 .work-item p {
-    font-size: clamp(0.75rem, 2.2vw, 0.9rem);
-    color: #bbb;
+    font-size: clamp(0.78rem, 1.8vw, 0.9rem);
+    color: #b0b0b0;
     flex-grow: 1;
+    line-height: 1.6;
 }
 
-/* Contact Section */
+/* ===========================
+   Contact Section
+   =========================== */
 .contact-section {
     text-align: center;
-    background-image: linear-gradient(#333, black);
-    padding: 80px 0px;
+    background-image: linear-gradient(to bottom, transparent, #000 80%);
+    padding: 90px 24px;
     width: 100%;
     max-width: 100%;
     position: relative;
@@ -483,33 +529,35 @@ section {
 }
 
 .contact-section h2 {
-    font-size: clamp(1.3rem, 5vw, 2rem);
+    font-size: clamp(1.4rem, 4vw, 2.2rem);
     margin-bottom: clamp(30px, 5vw, 60px);
     color: #fff;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
     position: relative;
     z-index: 15;
 }
 
 .contact-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-    max-width: 1200px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+    max-width: 1100px;
     margin: 0 auto;
+    padding: 0 16px;
     position: relative;
     z-index: 15;
 }
 
-/* More transparent glass cards for contact section */
 .contact-section .glass-card {
-    background: rgba(255, 255, 255, 0.05) !important;
-    backdrop-filter: blur(15px) saturate(160%);
-    -webkit-backdrop-filter: blur(15px) saturate(160%);
+    background: rgba(255, 255, 255, 0.04) !important;
+    backdrop-filter: blur(14px) saturate(150%);
+    -webkit-backdrop-filter: blur(14px) saturate(150%);
     z-index: 15;
 }
 
 .contact-section .glass-card:hover {
-    background: rgba(255, 255, 255, 0.08) !important;
+    background: rgba(255, 255, 255, 0.09) !important;
 }
 
 .contact-item {
@@ -520,47 +568,48 @@ section {
 .contact-item h4 {
     color: #fff;
     margin-bottom: 10px;
+    font-size: clamp(1rem, 2.5vw, 1.15rem);
 }
 
-.contact-item a {
-    color: rgba(255, 255, 255, 0.8);
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s ease;
+.contact-item p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: clamp(0.8rem, 1.8vw, 0.9rem);
+    margin: 0;
 }
 
-.contact-item a:hover {
-    color: #fff;
-    text-decoration: underline;
-}
-
-/* Footer */
+/* ===========================
+   Footer
+   =========================== */
 footer {
-    padding: 20px;
+    padding: 22px;
     text-align: center;
-    background-color: #000000;
+    background-color: #000;
     position: relative;
     z-index: 15;
 }
 
 footer p {
-    font-size: 0.9rem;
-    color: #fdfdfd;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.55);
+    margin: 0;
 }
 
-/* Button Styles for Projects and Experience */
+/* ===========================
+   Buttons
+   =========================== */
 .btn-glass {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.09);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.18);
     color: white;
-    padding: 8px 16px;
-    border-radius: 20px;
+    padding: 7px 18px;
+    border-radius: 50px;
     text-decoration: none;
     font-size: 0.8rem;
-    margin: 0 5px;
+    margin: 3px 4px;
     display: inline-block;
-    transition: all 0.3s ease;
+    transition: background 0.28s ease, transform 0.25s ease, border-color 0.28s ease;
+    letter-spacing: 0.02em;
 }
 
 .btn-glass:hover {
@@ -568,292 +617,208 @@ footer p {
     color: white;
     text-decoration: none;
     transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.35);
 }
 
 .project-buttons {
-    margin-top: 15px;
+    margin-top: auto;
+    padding-top: 14px;
 }
 
-/* ===================================== */
-/* RESPONSIVE DESIGN - TABLET & MOBILE  */
-/* ===================================== */
+/* ===========================
+   AOS / Scroll animation tweaks
+   =========================== */
+[data-aos] {
+    /* Ensure elements not yet revealed don't flash */
+}
 
-/* Tablet Devices (768px and below) */
+/* ===========================
+   RESPONSIVE — Tablet ≤ 1024px
+   =========================== */
+@media (max-width: 1024px) {
+    .skill-grid,
+    .work-grid {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 0 clamp(8px, 3vw, 24px);
+    }
+
+    .skill-image,
+    .work-image {
+        height: 210px;
+    }
+}
+
+/* ===========================
+   RESPONSIVE — Tablet ≤ 768px
+   =========================== */
 @media (max-width: 768px) {
     .hero-content h1 {
-        font-size: 2.5rem;
-        margin: 0 20px;
+        font-size: clamp(1.8rem, 8vw, 2.8rem);
         white-space: normal;
         text-align: center;
     }
 
+    .hero-content {
+        text-align: center;
+        padding: 0 16px clamp(50px, 8vh, 80px);
+    }
+
     .about-cards {
         flex-direction: column;
+        gap: 20px;
     }
 
-    .skill-grid, .work-grid {
+    .about {
+        flex: 1 1 100%;
+    }
+
+    .skill-grid,
+    .work-grid {
         grid-template-columns: repeat(2, 1fr);
-        max-width: 800px;
+        gap: 20px;
+        padding: 0 clamp(12px, 4vw, 32px);
     }
 
-    .spotlight {
-        background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(150, 150, 150, 0.5) 50%, transparent 100%);
+    .skill-image,
+    .work-image {
+        height: 180px;
+    }
+
+    .contact-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+}
+
+/* ===========================
+   RESPONSIVE — Mobile ≤ 600px
+   =========================== */
+@media (max-width: 600px) {
+    .hero-content h1 {
+        font-size: clamp(1.6rem, 9vw, 2.2rem);
     }
 
     .button-container {
         top: 10px;
         right: 10px;
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    .download-resume, .contact-me {
-        padding: 8px 15px;
-        font-size: 0.8rem;
-    }
-    
-    #foglayer_01 .image01, #foglayer_01 .image02,
-    #foglayer_02 .image01, #foglayer_02 .image02,
-    #foglayer_03 .image01, #foglayer_03 .image02 {
-        width: 100%;
+        gap: 6px;
     }
 
-    section {
-        padding: 60px 20px;
-    }
-    
-    .about-section h1, .skill-title, .section-title, .contact-section h2 {
-        margin-bottom: 40px;
-        font-size: 2rem;
-    }
-
-    .hero-content {
-        padding-bottom: 60px;
-    }
-
-    .glass-card {
-        padding: 20px;
-    }
-
-    .about p {
-        font-size: 0.95rem;
-    }
-
-    .skill-item, .work-item {
-        max-width: 100%;
-        min-height: auto;
-    }
-
-    .skill-image, .work-image {
-        height: 150px;
-    }
-}
-
-/* Small Tablets & Large Phones (600px and below) */
-@media (max-width: 600px) {
-    .hero-content h1 {
-        font-size: 2rem;
-        margin: 0 15px;
-    }
-
-    .button-container {
-        top: 5px;
-        right: 5px;
-        flex-direction: column;
-        gap: 8px;
-    }
-    
-    .download-resume, .contact-me {
-        padding: 6px 12px;
+    .download-resume,
+    .contact-me {
+        padding: 7px 13px;
         font-size: 0.75rem;
     }
 
     section {
-        padding: 40px 15px;
+        padding: 48px 16px;
     }
 
-    .about-section h1, .skill-title, .section-title, .contact-section h2 {
-        font-size: 1.5rem;
-        margin-bottom: 30px;
-    }
-
-    .glass-card {
-        padding: 15px;
-        border-radius: 10px;
-    }
-
-    .skill-item h3, .work-item h3 {
-        font-size: 1rem;
-    }
-
-    .skill-item p, .work-item p {
-        font-size: 0.85rem;
-    }
-
-    .about p {
-        font-size: 0.9rem;
-    }
-
-    .about p h3 {
-        font-size: 1rem;
-        margin-top: 15px;
-    }
-
-    .skill-image, .work-image {
-        height: 120px;
-        margin-bottom: 10px;
-    }
-
-    .skill-grid, .work-grid {
+    .skill-grid,
+    .work-grid {
         grid-template-columns: 1fr;
-        max-width: 100%;
+        gap: 18px;
+        padding: 0 clamp(16px, 5vw, 40px);
+    }
+
+    .skill-image,
+    .work-image {
+        height: 200px;
     }
 
     .contact-grid {
-        gap: 20px;
-        padding: 0 15px;
+        grid-template-columns: 1fr;
+        gap: 14px;
     }
 
     .contact-item {
-        padding: 20px 15px;
+        padding: 22px 16px;
     }
 
     .btn-glass {
-        padding: 6px 12px;
+        padding: 6px 13px;
         font-size: 0.75rem;
-        margin: 2px;
     }
 }
 
-/* Mobile Phones (480px and below) */
+/* ===========================
+   RESPONSIVE — Mobile ≤ 480px
+   =========================== */
 @media (max-width: 480px) {
     .hero-content h1 {
-        font-size: 1.5rem;
-        margin: 0 10px;
+        font-size: clamp(1.4rem, 9vw, 1.9rem);
     }
 
     .button-container {
-        top: 5px;
-        right: 5px;
+        top: 8px;
+        right: 8px;
         gap: 5px;
-        flex-direction: column;
     }
-    
-    .download-resume, .contact-me {
-        padding: 5px 10px;
+
+    .download-resume,
+    .contact-me {
+        padding: 6px 11px;
+        font-size: 0.7rem;
+    }
+
+    section {
+        padding: 36px 12px;
+    }
+
+    .glass-card {
+        border-radius: 12px;
+        padding: 14px !important;
+    }
+
+    .skill-image,
+    .work-image {
+        height: 120px;
+    }
+
+    footer p {
+        font-size: 0.75rem;
+    }
+
+    .btn-glass {
+        padding: 5px 11px;
+        font-size: 0.7rem;
+    }
+}
+
+/* ===========================
+   RESPONSIVE — XS ≤ 360px
+   =========================== */
+@media (max-width: 360px) {
+    .hero-content h1 {
+        font-size: 1.3rem;
+    }
+
+    .button-container {
+        flex-direction: row;
+        flex-wrap: wrap;
+        top: 6px;
+        right: 6px;
+        gap: 4px;
+        max-width: calc(100vw - 12px);
+    }
+
+    .download-resume,
+    .contact-me {
+        padding: 5px 9px;
         font-size: 0.65rem;
     }
 
     section {
-        padding: 30px 10px;
-    }
-
-    .hero-section {
-        height: 100vh;
-    }
-
-    .hero-content {
-        padding-bottom: 40px;
-    }
-
-    .about-section h1, .skill-title, .section-title, .contact-section h2 {
-        font-size: 1.3rem;
-        margin-bottom: 20px;
+        padding: 28px 10px;
     }
 
     .glass-card {
-        padding: 12px;
-        border-radius: 8px;
+        padding: 11px !important;
+        border-radius: 10px;
     }
 
-    .skill-item h3, .work-item h3 {
-        font-size: 0.95rem;
-        margin-bottom: 8px;
-    }
-
-    .skill-item p, .work-item p {
-        font-size: 0.8rem;
-    }
-
-    .about p {
-        font-size: 0.85rem;
-        line-height: 1.5;
-    }
-
-    .about p h3 {
-        font-size: 0.9rem;
-        margin-top: 12px;
-    }
-
-    .skill-image, .work-image {
+    .skill-image,
+    .work-image {
         height: 100px;
-        margin-bottom: 8px;
-    }
-
-    .contact-grid {
-        gap: 15px;
-        padding: 0 10px;
-    }
-
-    .contact-item {
-        padding: 15px 10px;
-    }
-
-    .contact-item h4 {
-        font-size: 0.95rem;
-    }
-
-    .contact-item p {
-        font-size: 0.85rem;
-    }
-
-    .btn-glass {
-        padding: 5px 10px;
-        font-size: 0.7rem;
-        margin: 2px;
-    }
-
-    .project-buttons {
-        margin-top: 10px;
-    }
-
-    footer p {
-        font-size: 0.8rem;
-    }
-}
-
-/* Extra Small Phones (320px and below) */
-@media (max-width: 320px) {
-    .hero-content h1 {
-        font-size: 1.2rem;
-        margin: 0 5px;
-    }
-
-    .button-container {
-        top: 3px;
-        right: 3px;
-        gap: 3px;
-    }
-
-    .download-resume, .contact-me {
-        padding: 4px 8px;
-        font-size: 0.6rem;
-    }
-
-    section {
-        padding: 20px 8px;
-    }
-
-    .about-section h1, .skill-title, .section-title, .contact-section h2 {
-        font-size: 1.2rem;
-        margin-bottom: 15px;
-    }
-
-    .glass-card {
-        padding: 10px;
-    }
-
-    .skill-item p, .work-item p, .about p {
-        font-size: 0.75rem;
     }
 }

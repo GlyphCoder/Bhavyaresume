@@ -1,36 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bhavya Shah - Engineer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Raleway:wght@300;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Raleway:wght@300;600&display=swap"
+        rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="styles.css" rel="stylesheet">
-    
+
     <!-- jQuery CDN -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
+
 <body>
     <!-- Base Background Layer -->
     <div class="base-background"></div>
 
-    <!-- Fog Animation -->
-    <div class="fogwrapper">
-        <div id="foglayer_01" class="fog">
-            <div class="image01"></div>
-            <div class="image02"></div>
-        </div>
-        <div id="foglayer_02" class="fog">
-            <div class="image01"></div>
-            <div class="image02"></div>
-        </div>
-        <div id="foglayer_03" class="fog">
-            <div class="image01"></div>
-            <div class="image02"></div>
-        </div>
+    <!-- CSS Cloud Layer — slow drifting blobs, zero external assets -->
+    <div class="cloud-layer" aria-hidden="true">
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-1b"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-2b"></div>
+        <div class="cloud cloud-3"></div>
+        <div class="cloud cloud-3b"></div>
+        <div class="cloud cloud-4"></div>
+        <div class="cloud cloud-5"></div>
     </div>
+
+    <!-- Particle Canvas Background -->
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
 
     <!-- Fixed Button Container -->
     <div class="button-container">
@@ -38,107 +41,135 @@
         <a href="#contact" class="contact-me">
             Contact Me
         </a>
-        
+
         <!-- Download Resume Button -->
         <a href="Bhavya_resume.pdf" download="BhavyaShah_resume.pdf" class="download-resume">
             Download My Resume
         </a>
     </div>
 
-    <!-- Spotlight Effect -->
-    <div class="spotlight"></div>
+
 
     <!-- Hero Section -->
-    <header class="hero-section" data-aos="zoom-in">
+    <header class="hero-section" data-aos="fade-up" data-aos-duration="1400">
         <div class="hero-content">
             <h1>Hey! I'm <br> Bhavya Mehul Shah<br>⇓</h1>
         </div>
     </header>
 
     <!-- About Section -->
-    <section class="about-section container py-5" data-aos="fade-up">
-        <h1 class="text-center mb-4" data-aos="fade-down">About Me</h1>
+    <section class="about-section container py-5" data-aos="fade-up" data-aos-duration="900">
+        <h1 class="text-center mb-4" data-aos="fade-down" data-aos-duration="800">About Me</h1>
         <div class="about-cards row">
-            <div class="about col-md-6 glass-card d-flex justify-content-center align-items-center" data-aos="fade-right">
+            <div class="about col-md-6 glass-card tilt-card d-flex justify-content-center align-items-center"
+                data-aos="fade-right" data-aos-duration="900">
                 <img src="IMG_9784.jpg" alt="Profile Picture" class="img-fluid" style="max-height: 100%;">
             </div>
-            <div class="about col-md-6 glass-card" data-aos="fade-left">
-                <p class="lead">With a strong foundation in Computer Engineering, I love to develop robust applications that solve real-world problems. A software Engineer by heart. An Electronics Hobbyist.</p>
+            <div class="about col-md-6 glass-card tilt-card" data-aos="fade-left" data-aos-duration="900">
+                <p class="lead">With a strong foundation in Computer Engineering, I love to develop robust applications
+                    that solve real-world problems. A software Engineer by heart. An Electronics Hobbyist.</p>
                 <h3 class="mt-4" align="center">Education</h3>
                 <p>Bachelors in Computer Science and Engineering <span style="margin-left: 70px;"></span> 2023-2027
-                <br>Nirma University, Ahmedabad<span style="margin-left: 220px;"></span>CGPA: 8.74</p>
+                    <br>Nirma University, Ahmedabad<span style="margin-left: 220px;"></span>CGPA: 8.74
+                </p>
                 <h3 class="mt-4" align="center">Skills</h3>
-                <p>Languages - <language>Python, C, C++, Java, JavaScript, HTML, CSS, SQL, React, Node.js, Express.js, MongoDB, Git, Docker, Kubernetes</language></p>
-                <p>Frameworks/Libraries - <framework>React, Node.js, Express.js, Flask, TensorFlow, Keras, Bootstrap</framework></p>
-                <p>Tools - <tools>Git, Docker, Kubernetes, AWS, Heroku, VS Code, Jupyter Notebook</tools></p>
+                <p>Languages - <language>Python, C, C++, Java, JavaScript, HTML, CSS, SQL, React, Node.js, Express.js,
+                        MongoDB, Git, Docker, Kubernetes</language>
+                </p>
+                <p>Frameworks/Libraries - <framework>React, Node.js, Express.js, Flask, TensorFlow, Keras, Bootstrap
+                    </framework>
+                </p>
+                <p>Tools - <tools>Git, Docker, Kubernetes, AWS, Heroku, VS Code, Jupyter Notebook</tools>
+                </p>
                 <h3 class="mt-4" align="center">Coursework</h3>
-                <p>Data Structures and Algorithms, Database Management Systems, Operating Systems, Computer Networks, Web Development, Machine Learning, Artificial Intelligence, Software Engineering</p>
+                <p>Data Structures and Algorithms, Database Management Systems, Operating Systems, Computer Networks,
+                    Web Development, Machine Learning, Artificial Intelligence, Software Engineering</p>
 
-                
+
             </div>
         </div>
     </section>
 
     <!-- Projects Section with separate buttons -->
-    <section class="skill-section container py-5" data-aos="fade-up">
+    <section class="skill-section container py-5" data-aos="fade-up" data-aos-duration="900">
         <div class="skill-container">
-            <h2 class="skill-title text-center mb-4" data-aos="fade-down">Projects</h2>
+            <h2 class="skill-title text-center mb-4" data-aos="fade-down" data-aos-duration="800">Projects</h2>
             <div class="skill-grid">
-                <div class="skill-item glass-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="skill-item glass-card tilt-card" data-aos="fade-up" data-aos-delay="0"
+                    data-aos-duration="800">
                     <div class="skill-image mb-3">
                         <img src="image1.jpeg" alt="Skill Image 1" class="img-fluid rounded">
                     </div>
                     <h3>RiskAnalyzer [Finshield Hackathon]</h3>
-                    <p>Developed a machine learning model and full-stack web application to predict credit default probability
-                    using non-traditional data sources (e.g., mobile usage, utility payments). Built with Python, Flask, and
-                    TensorFlow React, the solution enables lenders to perform rapid and inclusive risk assessments for 'thin-file' customers. Built machine learning models for the application.</p>
+                    <p>Developed a machine learning model and full-stack web application to predict credit default
+                        probability
+                        using non-traditional data sources (e.g., mobile usage, utility payments). Built with Python,
+                        Flask, and
+                        TensorFlow React, the solution enables lenders to perform rapid and inclusive risk assessments
+                        for 'thin-file' customers. Built machine learning models for the application.</p>
                     <div class="project-buttons">
-                        <a href="https://defaultprediction-frontend.onrender.com" target="_blank" class="btn-glass">Live Demo</a>
-                        <a href="https://github.com/GlyphCoder/RiskAnalyzer" target="_blank" class="btn-glass">GitHub</a>
+                        <a href="https://defaultprediction-frontend.onrender.com" target="_blank" class="btn-glass">Live
+                            Demo</a>
+                        <a href="https://github.com/GlyphCoder/RiskAnalyzer" target="_blank"
+                            class="btn-glass">GitHub</a>
                     </div>
                 </div>
 
-                <div class="skill-item glass-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="skill-item glass-card tilt-card" data-aos="fade-up" data-aos-delay="100"
+                    data-aos-duration="800">
                     <div class="skill-image mb-3">
                         <img src="image2.png" alt="Skill Image 2" class="img-fluid rounded">
                     </div>
                     <h3>VoxelWorld</h3>
-                    <p>Lightweight, browser-based 3D voxel sandbox featuring procedural environments, dynamic time-of-day lighting, and a custom built-in Neural Network for generating instant architectural structures.</p>
+                    <p>Lightweight, browser-based 3D voxel sandbox featuring procedural environments, dynamic
+                        time-of-day lighting, and a custom built-in Neural Network for generating instant architectural
+                        structures.</p>
                     <div class="project-buttons">
                         <a href="https://voxelworld-builder.vercel.app/" target="_blank" class="btn-glass">Live Demo</a>
                         <a href="https://github.com/GlyphCoder/voxelworld" target="_blank" class="btn-glass">GitHub</a>
                     </div>
                 </div>
-                <div class="skill-item glass-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="skill-item glass-card tilt-card" data-aos="fade-up" data-aos-delay="200"
+                    data-aos-duration="800">
                     <div class="skill-image mb-3">
                         <img src="image5.png" alt="Skill Image 2" class="img-fluid rounded">
                     </div>
                     <h3>ResQnet [Dotslash 9.0 Hackathon]</h3>
-                    <p>ResQNet is a next-generation emergency response system that bridges the gap between distressed individuals, local volunteers, and official dispatchers. By integrating Artificial Intelligence, real-time geocoding, and Blockchain technology, ResQNet eliminates the inefficiencies of traditional manual dispatch systems.</p>
+                    <p>ResQNet is a next-generation emergency response system that bridges the gap between distressed
+                        individuals, local volunteers, and official dispatchers. By integrating Artificial Intelligence,
+                        real-time geocoding, and Blockchain technology, ResQNet eliminates the inefficiencies of
+                        traditional manual dispatch systems.</p>
                     <div class="project-buttons">
-                        <a href="https://www.youtube.com/watch?v=G-xn790TDXA" target="_blank" class="btn-glass">Live Demo</a>
-                        <a href="https://github.com/DotSlash-9-0/GlyphCoders" target="_blank" class="btn-glass">GitHub</a>
+                        <a href="https://www.youtube.com/watch?v=G-xn790TDXA" target="_blank" class="btn-glass">Live
+                            Demo</a>
+                        <a href="https://github.com/DotSlash-9-0/GlyphCoders" target="_blank"
+                            class="btn-glass">GitHub</a>
                     </div>
                 </div>
-                <div class="skill-item glass-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="skill-item glass-card tilt-card" data-aos="fade-up" data-aos-delay="0"
+                    data-aos-duration="800">
                     <div class="skill-image mb-3">
                         <img src="image3.png" alt="Skill Image 1" class="img-fluid rounded">
                     </div>
                     <h3>StoryArc AI [Hack-a-Mind Hackathon]</h3>
-                    <p>An AI-powered episodic intelligence engine that transforms your story ideas into fully analyzed, production-ready vertical series (90-second episodes). It leverages Google Gemini AI to provide comprehensive narrative analysis and creative guidance.</p>
+                    <p>An AI-powered episodic intelligence engine that transforms your story ideas into fully analyzed,
+                        production-ready vertical series (90-second episodes). It leverages Google Gemini AI to provide
+                        comprehensive narrative analysis and creative guidance.</p>
                     <div class="project-buttons">
                         <a href="https://github.com/GlyphCoder/StoryArc-AI" target="_blank" class="btn-glass">GitHub</a>
                     </div>
                 </div>
 
-                <div class="skill-item glass-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="skill-item glass-card tilt-card" data-aos="fade-up" data-aos-delay="100"
+                    data-aos-duration="800">
                     <div class="skill-image mb-3">
                         <img src="image4.webp" alt="to be uploaded" class="img-fluid rounded">
                     </div>
                     <h3>Translator App</h3>
                     <p>Translation app with real-time speech recognition and text-to-speech functionality.</p>
                     <div class="project-buttons">
-                        <a href="https://github.com/GlyphCoder/translator-app" target="_blank" class="btn-glass">GitHub</a>
+                        <a href="https://github.com/GlyphCoder/translator-app" target="_blank"
+                            class="btn-glass">GitHub</a>
                     </div>
                 </div>
             </div>
@@ -146,61 +177,75 @@
     </section>
 
     <!-- Experience and Achievements Section with single Link button -->
-    <section class="work-section container py-5" data-aos="fade-up">
+    <section class="work-section container py-5" data-aos="fade-up" data-aos-duration="900">
         <div class="work-container">
-            <h2 class="section-title text-center mb-4" data-aos="fade-down">WORK</h2>
+            <h2 class="section-title text-center mb-4" data-aos="fade-down" data-aos-duration="800">WORK</h2>
             <div class="work-grid">
-                <div class="work-item glass-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="work-item glass-card tilt-card" data-aos="fade-up" data-aos-delay="0"
+                    data-aos-duration="800">
                     <div class="work-image">
                         <img src="work1.jpeg" alt="Project Image 1" class="img-fluid rounded">
                     </div>
                     <h3>FinSheild Hackathon</h3>
-                    <p>Top 9 at the FinShield Hackathon 2025 organized by Bank of India in collaboration with IIT Hyderabad.
-The hackathon, powered by DFS, Ministry of Finance, and IBA, received 661 applications, with only 72 teams shortlisted for the final presentation.</p>
+                    <p>Top 9 at the FinShield Hackathon 2025 organized by Bank of India in collaboration with IIT
+                        Hyderabad.
+                        The hackathon, powered by DFS, Ministry of Finance, and IBA, received 661 applications, with
+                        only 72 teams shortlisted for the final presentation.</p>
                     <div class="project-buttons">
-                        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7373540854906507264/" target="_blank" class="btn-glass">Link</a>
+                        <a href="https://www.linkedin.com/feed/update/urn:li:activity:7373540854906507264/"
+                            target="_blank" class="btn-glass">Link</a>
                     </div>
                 </div>
 
-                <div class="work-item glass-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="work-item glass-card tilt-card" data-aos="fade-up" data-aos-delay="100"
+                    data-aos-duration="800">
                     <div class="work-image">
                         <img src="image3.png" alt="Confidential" class="img-fluid rounded">
                     </div>
                     <h3>Hack-a-Mind Hackathon</h3>
-                    <p><b>Runner Up at Hack-a-Mind Hackathon 2026</b>, organized by Nirma University, SUNY-bringhampton University, Sponserd by Pet Pooja. Winner in track sponsered by Quantloop.tech. Prize received - 5k INR</p>
+                    <p><b>Runner Up at Hack-a-Mind Hackathon 2026</b>, organized by Nirma University, SUNY-bringhampton
+                        University, Sponserd by Pet Pooja. Winner in track sponsered by Quantloop.tech. Prize received -
+                        5k INR</p>
                     <div class="project-buttons">
                         <a href="https://your-mobile-app-demo.com" target="_blank" class="btn-glass">Link</a>
                     </div>
                 </div>
 
-                <div class="work-item glass-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="work-item glass-card tilt-card" data-aos="fade-up" data-aos-delay="200"
+                    data-aos-duration="800">
                     <div class="work-image">
                         <img src="work2.jpeg" alt="Confidential" class="img-fluid rounded">
                     </div>
                     <h3>Dotslash 9.0 Hackathon</h3>
-                    <p><b>Winner at Dotslash 9.0 Hackathon 2026</b>,  Organized by the ACM NIT Surat Student Chapter at SVNIT, Surat, the event (21–22 March 2026) witnessed participation from 800+ teams and 2,400+ participants across India. Prize received - 50k INR</p>
+                    <p><b>Winner at Dotslash 9.0 Hackathon 2026</b>, Organized by the ACM NIT Surat Student Chapter at
+                        SVNIT, Surat, the event (21–22 March 2026) witnessed participation from 800+ teams and 2,400+
+                        participants across India. Prize received - 50k INR</p>
                     <div class="project-buttons">
                         <a href="https://your-mobile-app-demo.com" target="_blank" class="btn-glass">Link</a>
                     </div>
                 </div>
 
-                <div class="work-item glass-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="work-item glass-card tilt-card" data-aos="fade-up" data-aos-delay="0"
+                    data-aos-duration="800">
                     <div class="work-image">
                         <img src="path/to/your/image2.jpg" alt="Confidential" class="img-fluid rounded">
                     </div>
                     <h3>Research Project (TinyML)</h3>
-                    <p><b>TinyML-Based Trojan Detection Framework in Smart Grid Systems</b><br><br>Published at the 15th International Smart GridsConference, 2025</p>
+                    <p><b>TinyML-Based Trojan Detection Framework in Smart Grid Systems</b><br><br>Published at the 15th
+                        International Smart GridsConference, 2025</p>
                     <div class="project-buttons">
                         <a href="https://your-analytics-demo.com" target="_blank" class="btn-glass">Link</a>
                     </div>
                 </div>
 
-                <div class="work-item glass-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="work-item glass-card tilt-card" data-aos="fade-up" data-aos-delay="100"
+                    data-aos-duration="800">
                     <div class="work-image">
                         <img src="path/to/your/image3.jpg" alt="Confidential" class="img-fluid rounded">
                     </div>
                     <h3>Research Project (Reinforcement Learning)</h3>
-                    <p><b>Machine and Reinforcement Learning-Based Collaborative Framework for Drone Navigation in Battlefield Environment</b><br><br>Preprint</p>
+                    <p><b>Machine and Reinforcement Learning-Based Collaborative Framework for Drone Navigation in
+                            Battlefield Environment</b><br><br>Preprint</p>
                     <div class="project-buttons">
                         <a href="https://your-mobile-app-demo.com" target="_blank" class="btn-glass">Link</a>
                     </div>
@@ -213,22 +258,25 @@ The hackathon, powered by DFS, Ministry of Finance, and IBA, received 661 applic
     <section id="contact" class="contact-section container py-5">
         <h2 class="text-center mb-4">Contact Me</h2>
         <div class="contact-grid">
-            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=bhavya.mehul.shah@gmail.com" class="contact-item glass-card" style="text-decoration: none; color: inherit;">
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=bhavya.mehul.shah@gmail.com"
+                class="contact-item glass-card" style="text-decoration: none; color: inherit;">
                 <h4>Mail</h4>
                 <p>Click to gmail</p>
             </a>
-            
+
             <a href="tel:+917016017279" class="contact-item glass-card" style="text-decoration: none; color: inherit;">
                 <h4>Phone</h4>
                 <p>+91 7016017279</p>
             </a>
-            
-            <a href="https://linkedin.com/in/bhavyamshah" target="_blank" class="contact-item glass-card" style="text-decoration: none; color: inherit;">
+
+            <a href="https://linkedin.com/in/bhavyamshah" target="_blank" class="contact-item glass-card"
+                style="text-decoration: none; color: inherit;">
                 <h4>LinkedIn</h4>
                 <p>Click to connect</p>
             </a>
-            
-            <a href="https://github.com/GlyphCoder" target="_blank" class="contact-item glass-card" style="text-decoration: none; color: inherit;">
+
+            <a href="https://github.com/GlyphCoder" target="_blank" class="contact-item glass-card"
+                style="text-decoration: none; color: inherit;">
                 <h4>GitHub</h4>
                 <p>Click to view my work</p>
             </a>
@@ -244,4 +292,5 @@ The hackathon, powered by DFS, Ministry of Finance, and IBA, received 661 applic
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="script.js"></script>
 </body>
+
 </html>
