@@ -1,11 +1,14 @@
 /* ===========================
    General / Reset
    =========================== */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
 }
 
-body, html {
+body,
+html {
     margin: 0;
     padding: 0;
     width: 100%;
@@ -15,163 +18,128 @@ body, html {
     scroll-behavior: smooth;
     overflow-x: hidden;
     min-height: 100vh;
+    /* Establish stacking context so fixed children stack correctly */
+    isolation: isolate;
 }
 
-/* ===========================
-   Animated Background Canvas
-   =========================== */
-#bg-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -2;
-    pointer-events: none;
-}
 
 /* ===========================
-   CSS Cloud Layer
-   Soft, slow-drifting ellipses — pure CSS,
-   composited on GPU transform track only
+   CSS Cloud Layer — shaped clouds, left → right
    =========================== */
 .cloud-layer {
     position: fixed;
     inset: 0;
-    z-index: -1;
+    z-index: 1;
     pointer-events: none;
     overflow: hidden;
 }
 
+/* Base cloud shape: pill body + two puffy bumps via pseudo-elements */
 .cloud {
     position: absolute;
-    border-radius: 50%;
-    filter: blur(45px);
+    left: -420px;
+    /* start fully off-screen left */
+    background: rgba(210, 210, 210, 0.18);
+    border-radius: 100px;
+    filter: blur(22px);
+    /* foggy / atmospheric softness */
     will-change: transform;
     animation: cloud-drift linear infinite;
     opacity: 0;
 }
 
-/* Cloud 1 — bright sky-blue, top strip */
-.cloud-1 {
-    width: 750px;
-    height: 230px;
-    background: radial-gradient(ellipse at center,
-        rgba(99, 179, 237, 0.55) 0%,
-        rgba(99, 179, 237, 0.20) 50%,
-        transparent 100%);
-    top: 8%;
-    left: -30%;
-    animation-duration: 40s;
+.cloud::before,
+.cloud::after {
+    content: '';
+    position: absolute;
+    background: rgba(210, 210, 210, 0.10);
+    border-radius: 50%;
+}
+
+/* Left bump — taller, sits on top-left of the pill */
+.cloud::before {
+    width: 45%;
+    height: 180%;
+    top: -80%;
+    left: 12%;
+}
+
+/* Right bump — slightly smaller, top-right */
+.cloud::after {
+    width: 32%;
+    height: 150%;
+    top: -65%;
+    left: 52%;
+}
+
+/* ── Individual clouds ── */
+/* c1 — large, mid-screen, slow */
+.c1 {
+    width: 340px;
+    height: 70px;
+    top: 12%;
+    animation-duration: 42s;
     animation-delay: 0s;
 }
 
-/* Cloud 1b — same color, offset for seamless loop */
-.cloud-1b {
-    width: 700px;
-    height: 200px;
-    background: radial-gradient(ellipse at center,
-        rgba(120, 190, 245, 0.45) 0%,
-        rgba(120, 190, 245, 0.15) 50%,
-        transparent 100%);
-    top: 12%;
-    left: -30%;
-    animation-duration: 40s;
-    animation-delay: -20s;
-}
-
-/* Cloud 2 — purple-violet, mid zone */
-.cloud-2 {
-    width: 900px;
-    height: 270px;
-    background: radial-gradient(ellipse at center,
-        rgba(159, 122, 234, 0.50) 0%,
-        rgba(159, 122, 234, 0.18) 50%,
-        transparent 100%);
-    top: 35%;
-    left: -40%;
-    animation-duration: 55s;
+/* c2 — medium, upper area, faster */
+.c2 {
+    width: 220px;
+    height: 50px;
+    top: 30%;
+    animation-duration: 30s;
     animation-delay: -10s;
 }
 
-/* Cloud 2b */
-.cloud-2b {
-    width: 850px;
-    height: 250px;
-    background: radial-gradient(ellipse at center,
-        rgba(180, 140, 250, 0.40) 0%,
-        rgba(180, 140, 250, 0.14) 50%,
-        transparent 100%);
-    top: 38%;
-    left: -40%;
-    animation-duration: 55s;
-    animation-delay: -37s;
+/* c3 — large, lower-mid, slowest */
+.c3 {
+    width: 400px;
+    height: 80px;
+    top: 52%;
+    animation-duration: 58s;
+    animation-delay: -28s;
 }
 
-/* Cloud 3 — cyan-blue, lower zone */
-.cloud-3 {
-    width: 650px;
-    height: 200px;
-    background: radial-gradient(ellipse at center,
-        rgba(100, 210, 255, 0.45) 0%,
-        rgba(100, 210, 255, 0.16) 50%,
-        transparent 100%);
-    top: 65%;
-    left: -25%;
-    animation-duration: 45s;
-    animation-delay: -22s;
+/* c4 — small, near top, brisk */
+.c4 {
+    width: 160px;
+    height: 40px;
+    top: 20%;
+    animation-duration: 24s;
+    animation-delay: -18s;
 }
 
-/* Cloud 3b */
-.cloud-3b {
-    width: 600px;
-    height: 180px;
-    background: radial-gradient(ellipse at center,
-        rgba(80, 200, 255, 0.38) 0%,
-        rgba(80, 200, 255, 0.12) 50%,
-        transparent 100%);
-    top: 70%;
-    left: -25%;
-    animation-duration: 45s;
-    animation-delay: 0s;
-}
-
-/* Cloud 4 — indigo, near top */
-.cloud-4 {
-    width: 820px;
-    height: 240px;
-    background: radial-gradient(ellipse at center,
-        rgba(99, 130, 240, 0.48) 0%,
-        rgba(99, 130, 240, 0.17) 50%,
-        transparent 100%);
-    top: 22%;
-    left: -35%;
-    animation-duration: 65s;
-    animation-delay: -30s;
-}
-
-/* Cloud 5 — lavender, near bottom */
-.cloud-5 {
-    width: 700px;
-    height: 200px;
-    background: radial-gradient(ellipse at center,
-        rgba(210, 160, 255, 0.42) 0%,
-        rgba(210, 160, 255, 0.14) 50%,
-        transparent 100%);
-    top: 80%;
-    left: -20%;
-    animation-duration: 50s;
-    animation-delay: -15s;
+/* c5 — medium-large, near bottom */
+.c5 {
+    width: 280px;
+    height: 60px;
+    top: 72%;
+    animation-duration: 48s;
+    animation-delay: -38s;
 }
 
 @keyframes cloud-drift {
-    0%   { transform: translateX(0);      opacity: 0; }
-    6%   { opacity: 1; }
-    94%  { opacity: 1; }
-    100% { transform: translateX(145vw);  opacity: 0; }
+    0% {
+        transform: translateX(0);
+        opacity: 0;
+    }
+
+    5% {
+        opacity: 1;
+    }
+
+    95% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(calc(100vw + 420px));
+        opacity: 0;
+    }
 }
 
-/* Base background gradient layer */
+
+/* Base background gradient layer — sits behind everything */
 .base-background {
     position: fixed;
     top: 0;
@@ -179,7 +147,7 @@ body, html {
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: -3;
+    z-index: 0;
     background:
         radial-gradient(ellipse at 15% 85%, rgba(99, 179, 237, 0.07) 0%, transparent 55%),
         radial-gradient(ellipse at 85% 15%, rgba(159, 122, 234, 0.06) 0%, transparent 55%),
@@ -279,11 +247,13 @@ body, html {
 
 .tilt-card .tilt-shine {
     position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     border-radius: inherit;
     pointer-events: none;
-    background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.10) 0%, transparent 60%);
+    background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.10) 0%, transparent 60%);
     opacity: 0;
     transition: opacity 0.3s ease;
     z-index: 20;
@@ -301,7 +271,7 @@ section {
     max-width: 1200px;
     margin: 0 auto;
     position: relative;
-    z-index: 10;
+    z-index: 2;
 }
 
 /* ===========================
@@ -315,7 +285,7 @@ section {
     justify-content: flex-end;
     align-items: flex-end;
     position: relative;
-    z-index: 2;
+    z-index: 3;
     overflow: hidden;
 }
 
@@ -636,6 +606,7 @@ footer p {
    RESPONSIVE — Tablet ≤ 1024px
    =========================== */
 @media (max-width: 1024px) {
+
     .skill-grid,
     .work-grid {
         grid-template-columns: repeat(2, 1fr);

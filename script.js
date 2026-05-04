@@ -34,7 +34,6 @@ $(document).ready(function () {
     });
 
     /* ── Init features ── */
-    initParticleCanvas();
     initTiltCards();
 });
 
