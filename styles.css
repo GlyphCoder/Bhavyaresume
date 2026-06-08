@@ -24,118 +24,31 @@ html {
 
 
 /* ===========================
-   CSS Cloud Layer — shaped clouds, left → right
+   Fixed Video Background Layer — playing ambient animations globally
    =========================== */
-.cloud-layer {
+.fixed-video-background {
     position: fixed;
     inset: 0;
-    z-index: 1;
+    z-index: 1; /* Sits above base-background (z:0) but below everything else */
     pointer-events: none;
     overflow: hidden;
 }
 
-/* Base cloud shape: pill body + two puffy bumps via pseudo-elements */
-.cloud {
+.bg-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scaleY(-1);
+    opacity: 0.70; /* Increased opacity to make HLS stream very visible */
+    filter: brightness(0.95) contrast(1.15); /* boosted brightness to highlight stream colors */
+}
+
+.bg-video-overlay {
     position: absolute;
-    left: -420px;
-    /* start fully off-screen left */
-    background: rgba(210, 210, 210, 0.18);
-    border-radius: 100px;
-    filter: blur(22px);
-    /* foggy / atmospheric softness */
-    will-change: transform;
-    animation: cloud-drift linear infinite;
-    opacity: 0;
-}
-
-.cloud::before,
-.cloud::after {
-    content: '';
-    position: absolute;
-    background: rgba(210, 210, 210, 0.10);
-    border-radius: 50%;
-}
-
-/* Left bump — taller, sits on top-left of the pill */
-.cloud::before {
-    width: 45%;
-    height: 180%;
-    top: -80%;
-    left: 12%;
-}
-
-/* Right bump — slightly smaller, top-right */
-.cloud::after {
-    width: 32%;
-    height: 150%;
-    top: -65%;
-    left: 52%;
-}
-
-/* ── Individual clouds ── */
-/* c1 — large, mid-screen, slow */
-.c1 {
-    width: 340px;
-    height: 70px;
-    top: 12%;
-    animation-duration: 42s;
-    animation-delay: 0s;
-}
-
-/* c2 — medium, upper area, faster */
-.c2 {
-    width: 220px;
-    height: 50px;
-    top: 30%;
-    animation-duration: 30s;
-    animation-delay: -10s;
-}
-
-/* c3 — large, lower-mid, slowest */
-.c3 {
-    width: 400px;
-    height: 80px;
-    top: 52%;
-    animation-duration: 58s;
-    animation-delay: -28s;
-}
-
-/* c4 — small, near top, brisk */
-.c4 {
-    width: 160px;
-    height: 40px;
-    top: 20%;
-    animation-duration: 24s;
-    animation-delay: -18s;
-}
-
-/* c5 — medium-large, near bottom */
-.c5 {
-    width: 280px;
-    height: 60px;
-    top: 72%;
-    animation-duration: 48s;
-    animation-delay: -38s;
-}
-
-@keyframes cloud-drift {
-    0% {
-        transform: translateX(0);
-        opacity: 0;
-    }
-
-    5% {
-        opacity: 1;
-    }
-
-    95% {
-        opacity: 1;
-    }
-
-    100% {
-        transform: translateX(calc(100vw + 420px));
-        opacity: 0;
-    }
+    inset: 0;
+    /* Lighter translucent overlay to make background video highly visible */
+    background: rgba(10, 10, 10, 0.42);
+    z-index: 2;
 }
 
 
@@ -149,10 +62,10 @@ html {
     pointer-events: none;
     z-index: 0;
     background:
-        radial-gradient(ellipse at 15% 85%, rgba(99, 179, 237, 0.07) 0%, transparent 55%),
-        radial-gradient(ellipse at 85% 15%, rgba(159, 122, 234, 0.06) 0%, transparent 55%),
-        radial-gradient(ellipse at 50% 50%, rgba(49, 130, 206, 0.04) 0%, transparent 60%),
-        linear-gradient(180deg, #0d0d0d 0%, #111827 50%, #0d0d0d 100%);
+        radial-gradient(ellipse at 15% 85%, rgba(200, 200, 200, 0.1) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 15%, rgba(240, 240, 240, 0.08) 0%, transparent 55%),
+        radial-gradient(ellipse at 50% 50%, rgba(130, 130, 130, 0.06) 0%, transparent 60%),
+        linear-gradient(180deg, #0d0d0d 0%, #222225 50%, #0d0d0d 100%);
 }
 
 /* ===========================
@@ -294,6 +207,8 @@ section {
     cursor: pointer;
     width: 100%;
     padding: 0 clamp(16px, 6vw, 80px) clamp(60px, 8vh, 110px);
+    position: relative;
+    z-index: 10;
 }
 
 .hero-content h1 {
@@ -312,6 +227,8 @@ section {
 .hero-content h1:hover {
     transform: scale(1.03);
 }
+
+
 
 /* ===========================
    About Section

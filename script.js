@@ -35,6 +35,7 @@ $(document).ready(function () {
 
     /* ── Init features ── */
     initTiltCards();
+    initHlsVideo();
 });
 
 
@@ -54,13 +55,13 @@ function initParticleCanvas() {
     const MAX_DIST = 120;        // link distance
     const SPEED = 0.22;          // drift speed
 
-    // Palette that suits the dark portfolio aesthetic
+    // Palette of neutral grey and dark shades
     const COLORS = [
-        'rgba(99,179,237,',      // sky blue
-        'rgba(159,122,234,',     // purple
-        'rgba(100,210,255,',     // cyan
-        'rgba(210,160,255,',     // lavender
-        'rgba(255,255,255,',     // white
+        'rgba(60,60,60,',        // dark grey
+        'rgba(90,90,90,',        // medium-dark grey
+        'rgba(120,120,120,',     // medium grey
+        'rgba(150,150,150,',     // silver/grey
+        'rgba(180,180,180,',     // light grey
     ];
 
     function resize() {
@@ -110,7 +111,7 @@ function initParticleCanvas() {
                 if (dist < MAX_DIST) {
                     const a = (1 - dist / MAX_DIST) * 0.28;
                     ctx.beginPath();
-                    ctx.strokeStyle = `rgba(160,200,255,${a})`;
+                    ctx.strokeStyle = `rgba(120,120,120,${a})`;
                     ctx.lineWidth = 0.8;
                     ctx.moveTo(particles[i].x, particles[i].y);
                     ctx.lineTo(particles[j].x, particles[j].y);
@@ -231,3 +232,60 @@ window.addEventListener('load', function () {
         window.scrollTo(0, 0);
     }
 });
+
+
+/* =========================================================
+   3. HLS VIDEO PLAYBACK INITIALIZATION
+      Uses hls.js via CDN to load and play HLS (.m3u8) streams
+      on browsers that don't support it natively (e.g. Chrome, Firefox).
+   ========================================================= */
+function initHlsVideo() {
+    const video = document.querySelector('.bg-video');
+    if (!video) return;
+
+    const source = video.querySelector('source');
+    if (!source) return;
+
+    const src = source.getAttribute('src');
+    if (!src) return;
+
+    // Check if the source is an HLS (.m3u8) file
+    if (src.indexOf('.m3u8') === -1) return;
+
+    if (Hls.isSupported()) {
+        const hls = new Hls({
+            maxMaxBufferLength: 10,
+            enableWorker: true,
+            lowLatencyMode: true
+        });
+        hls.loadSource(src);
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, function() {
+            video.play().catch(function(err) {
+                console.log("Auto-play blocked or failed: ", err);
+            });
+        });
+        hls.on(Hls.Events.ERROR, function(event, data) {
+            if (data.fatal) {
+                switch(data.type) {
+                    case Hls.ErrorTypes.NETWORK_ERROR:
+                        hls.startLoad();
+                        break;
+                    case Hls.ErrorTypes.MEDIA_ERROR:
+                        hls.recoverMediaError();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        // Native HLS support (Safari / iOS devices)
+        video.src = src;
+        video.addEventListener('loadedmetadata', function() {
+            video.play().catch(function(err) {
+                console.log("Auto-play blocked or failed: ", err);
+            });
+        });
+    }
+}
