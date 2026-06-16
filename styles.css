@@ -24,31 +24,159 @@ html {
 
 
 /* ===========================
-   Fixed Video Background Layer — playing ambient animations globally
+   Fixed Fog Background Layer — animated dark/light grey clouds globally
    =========================== */
-.fixed-video-background {
+.fixed-fog-background {
     position: fixed;
     inset: 0;
-    z-index: 1; /* Sits above base-background (z:0) but below everything else */
+    z-index: 1; /* Sits above base-background (z:0) but below content (z:2) */
     pointer-events: none;
     overflow: hidden;
 }
 
-.bg-video {
-    width: 100%;
+.fogwrapper {
     height: 100%;
-    object-fit: cover;
-    transform: scaleY(-1);
-    opacity: 0.70; /* Increased opacity to make HLS stream very visible */
-    filter: brightness(0.95) contrast(1.15); /* boosted brightness to highlight stream colors */
+    position: absolute;
+    top: 0;
+    width: 100%;
+    /* Removed expensive blur/grayscale filters for low GPU utilization */
+    opacity: 0.65;
 }
 
-.bg-video-overlay {
+.fog {
+    height: 100%;
     position: absolute;
-    inset: 0;
-    /* Lighter translucent overlay to make background video highly visible */
-    background: rgba(10, 10, 10, 0.42);
-    z-index: 2;
+    width: 200%;
+    /* Promote to its own hardware-accelerated compositor layer */
+    will-change: transform, opacity;
+    transform: translate3d(0, 0, 0);
+}
+
+.fog .image01, .fog .image02 {
+    float: left;
+    height: 100%;
+    width: 50%;
+}
+
+#foglayer_01 {
+    -webkit-animation: foglayer_01_opacity 10s linear infinite, foglayer_moveme 25s linear infinite;
+    -moz-animation: foglayer_01_opacity 10s linear infinite, foglayer_moveme 25s linear infinite;
+    animation: foglayer_01_opacity 10s linear infinite, foglayer_moveme 25s linear infinite;
+}
+
+#foglayer_02, #foglayer_03 {
+    -webkit-animation: foglayer_02_opacity 21s linear infinite, foglayer_moveme 35s linear infinite;
+    -moz-animation: foglayer_02_opacity 21s linear infinite, foglayer_moveme 35s linear infinite;
+    animation: foglayer_02_opacity 21s linear infinite, foglayer_moveme 35s linear infinite;
+}
+
+/* ---------- Moving Fog Images ---------- */
+#foglayer_01 .image01, #foglayer_01 .image02 {
+    background: url("https://raw.githubusercontent.com/danielstuart14/CSS_FOG_ANIMATION/master/fog1.png") center center/cover no-repeat transparent;
+    /* Hardware acceleration & render optimization */
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    filter: brightness(0.22); /* Darken to match dark-grey/light-grey theme */
+}
+#foglayer_02 .image01, #foglayer_02 .image02,
+#foglayer_03 .image01, #foglayer_03 .image02 {
+    background: url("https://raw.githubusercontent.com/danielstuart14/CSS_FOG_ANIMATION/master/fog2.png") center center/cover no-repeat transparent;
+    /* Hardware acceleration & render optimization */
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    filter: brightness(0.18); /* Darken slightly more for deep cloud layer layering */
+}
+
+/* ---------- Keyframe Layer 1 ---------- */
+@-webkit-keyframes foglayer_01_opacity {
+    0% { opacity: .15; }
+    22% { opacity: .45; }
+    40% { opacity: .25; }
+    58% { opacity: .40; }
+    80% { opacity: .18; }
+    100% { opacity: .15; }
+}
+@-moz-keyframes foglayer_01_opacity {
+    0% { opacity: .15; }
+    22% { opacity: .45; }
+    40% { opacity: .25; }
+    58% { opacity: .40; }
+    80% { opacity: .18; }
+    100% { opacity: .15; }
+}
+@keyframes foglayer_01_opacity {
+    0% { opacity: .15; }
+    22% { opacity: .45; }
+    40% { opacity: .25; }
+    58% { opacity: .40; }
+    80% { opacity: .18; }
+    100% { opacity: .15; }
+}
+
+/* ---------- Keyframe Layer 2 ---------- */
+@-webkit-keyframes foglayer_02_opacity {
+    0% { opacity: .45; }
+    25% { opacity: .18; }
+    50% { opacity: .10; }
+    80% { opacity: .28; }
+    100% { opacity: .45; }
+}
+@-moz-keyframes foglayer_02_opacity {
+    0% { opacity: .45; }
+    25% { opacity: .18; }
+    50% { opacity: .10; }
+    80% { opacity: .28; }
+    100% { opacity: .45; }
+}
+@keyframes foglayer_02_opacity {
+    0% { opacity: .45; }
+    25% { opacity: .18; }
+    50% { opacity: .10; }
+    80% { opacity: .28; }
+    100% { opacity: .45; }
+}
+
+/* ---------- Keyframe Layer 3 ---------- */
+@-webkit-keyframes foglayer_03_opacity {
+    0% { opacity: .65; }
+    27% { opacity: .18; }
+    52% { opacity: .55; }
+    68% { opacity: .25; }
+    100% { opacity: .65; }
+}
+@-moz-keyframes foglayer_03_opacity {
+    0% { opacity: .65; }
+    27% { opacity: .18; }
+    52% { opacity: .55; }
+    68% { opacity: .25; }
+    100% { opacity: .65; }
+}
+@keyframes foglayer_03_opacity {
+    0% { opacity: .65; }
+    27% { opacity: .18; }
+    52% { opacity: .55; }
+    68% { opacity: .25; }
+    100% { opacity: .65; }
+}
+
+/* ---------- Keyframe moveMe ---------- */
+@-webkit-keyframes foglayer_moveme {
+    0% { -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
+    100% { -webkit-transform: translate3d(-50%, 0, 0); transform: translate3d(-50%, 0, 0); }
+}
+@-moz-keyframes foglayer_moveme {
+    0% { -moz-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
+    100% { -moz-transform: translate3d(-50%, 0, 0); transform: translate3d(-50%, 0, 0); }
+}
+@keyframes foglayer_moveme {
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-50%, 0, 0); }
+}
+
+@media only screen and (min-width: 280px) and (max-width: 767px) {
+    .fog .image01, .fog .image02 {
+        width: 100%;
+    }
 }
 
 

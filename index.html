@@ -23,13 +23,22 @@
     <!-- Base Background Layer -->
     <div class="base-background"></div>
 
-    <!-- Fixed Video Background Layer — playing ambient animations globally -->
-    <div class="fixed-video-background" aria-hidden="true">
-        <video autoPlay loop muted playsInline class="bg-video">
-            <source src="https://stream.mux.com/Si6ej2ZRrxRCnTYBXSScDRCdd7CGnyTqiPszZcw3z4I.m3u8" type="video/mp4" />
-        </video>
-        <!-- Overlay to blend the video into the black/grey theme -->
-        <div class="bg-video-overlay"></div>
+    <!-- Fixed Fog/Cloud Background Layer -->
+    <div class="fixed-fog-background" aria-hidden="true">
+        <div class="fogwrapper">
+            <div id="foglayer_01" class="fog">
+                <div class="image01"></div>
+                <div class="image02"></div>
+            </div>
+            <div id="foglayer_02" class="fog">
+                <div class="image01"></div>
+                <div class="image02"></div>
+            </div>
+            <div id="foglayer_03" class="fog">
+                <div class="image01"></div>
+                <div class="image02"></div>
+            </div>
+        </div>
     </div>
 
 
