@@ -8,8 +8,8 @@
 
 $(document).ready(function () {
 
-    /* ── Fix page-refresh scroll-to-hash jump ── */
-    if (window.location.hash) {
+    /* ── Fix page-refresh scroll-to-hash jump (index.html only) ── */
+    if (window.location.pathname.indexOf('blogs.html') === -1 && window.location.hash) {
         history.replaceState(null, null, '');
         window.scrollTo(0, 0);
     }
@@ -226,7 +226,7 @@ function initTiltCards() {
    Additional fix: scroll-to-top on page refresh with hash
    ========================================================= */
 window.addEventListener('load', function () {
-    if (window.location.hash) {
+    if (window.location.pathname.indexOf('blogs.html') === -1 && window.location.hash) {
         history.replaceState(null, null, '');
         window.scrollTo(0, 0);
     }
