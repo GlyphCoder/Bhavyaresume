@@ -211,6 +211,11 @@ html {
     max-width: min(260px, calc(100vw - 28px));
 }
 
+.button-row {
+    display: flex;
+    gap: 8px;
+}
+
 .download-resume,
 .contact-me {
     background: rgba(255, 255, 255, 0.08);
