@@ -242,6 +242,12 @@ html {
     border-color: rgba(255, 255, 255, 0.35);
 }
 
+/* Contact Me + Blogs buttons — 30% smaller than the resume button */
+.button-row .contact-me {
+    padding: 7px 15px;
+    font-size: 0.62rem;
+}
+
 /* ===========================
    Glass Morphism Cards
    =========================== */
@@ -731,6 +737,11 @@ footer p {
         font-size: 0.75rem;
     }
 
+    .button-row .contact-me {
+        padding: 5px 9px;
+        font-size: 0.53rem;
+    }
+
     section {
         padding: 48px 16px;
     }
@@ -782,6 +793,11 @@ footer p {
         font-size: 0.7rem;
     }
 
+    .button-row .contact-me {
+        padding: 4px 8px;
+        font-size: 0.49rem;
+    }
+
     section {
         padding: 36px 12px;
     }
@@ -827,6 +843,11 @@ footer p {
     .contact-me {
         padding: 5px 9px;
         font-size: 0.65rem;
+    }
+
+    .button-row .contact-me {
+        padding: 4px 6px;
+        font-size: 0.46rem;
     }
 
     section {
