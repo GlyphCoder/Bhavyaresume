@@ -1,3 +1,6 @@
+
+
+
 /* ===========================
    General / Reset
    =========================== */
@@ -426,13 +429,10 @@ section {
 }
 
 /* Logos are normalised by height, so a wide wordmark and a square
-   glyph sit on the same baseline. Scoped under .about to outrank
-   `.about img`, which forces width:100% and the edge-fade mask. */
-.about .exp-logo {
+   glyph sit on the same baseline. No fade mask (see .about img). */
+.exp-logo {
     height: 46px;
     width: auto;
-    max-width: 45%;
-    object-fit: contain;
     flex: 0 0 auto;
     border-radius: 6px;
     -webkit-mask-image: none;
@@ -459,7 +459,7 @@ section {
 /* One banner ratio for every card, so a portrait snapshot and a
    landscape one don't fight each other. object-position picks the
    subject out of each frame. */
-.about .exp-banner {
+.exp-banner {
     width: 100%;
     height: auto;
     aspect-ratio: 16 / 9;
@@ -470,11 +470,11 @@ section {
     mask-image: none;
 }
 
-.about .exp-banner--ford {
+.exp-banner--ford {
     object-position: center 62%;
 }
 
-.about .exp-banner--growthify {
+.exp-banner--growthify {
     object-position: center 78%;
 }
 
@@ -493,7 +493,7 @@ section {
         gap: 12px;
     }
 
-    .about .exp-logo {
+    .exp-logo {
         height: 38px;
     }
 }
@@ -997,11 +997,6 @@ footer p {
 }
 
 /* ── Blog article typography ── */
-/* Bootstrap's .text-muted (#6c757d) fails contrast on a near-black card. */
-.blogs-section .text-muted {
-    color: rgba(255, 255, 255, 0.62) !important;
-}
-
 .blogs-section article h3 {
     font-size: clamp(1rem, 2.4vw, 1.25rem);
     margin: 26px 0 10px;
