@@ -127,16 +127,23 @@
                 </div>
                 <img src="ford_photo.jpg" alt="Bhavya Shah at the Ford Sanand Engine Plant entrance"
                     class="exp-banner exp-banner--ford" width="825" height="1100" loading="lazy" decoding="async">
-                <p>Built <strong>AIinMOS</strong>, a forecasting platform that brings machine health and material
-                    planning into a single interface for the plant floor.</p>
-                <p><strong>Machine Forecasting Module</strong> — time-series models over historical machine data to
-                    surface likely failures early and shift maintenance from reactive to proactive.</p>
-                <p><strong>Material Module</strong> — an ensemble demand forecaster (Croston's, Holt's linear trend,
-                    XGBoost, Random Forest, Ridge) over spare-part transaction history, a 0–100 restock urgency matrix
-                    weighing stock on hand, safety stock, lead time and consumption velocity, and Isolation Forest
-                    anomaly detection for demand spikes, dropouts and erratic usage.</p>
-                <p>Shipped as a Plotly Dash application with schema auto-detection for uploaded Excel data, in-memory
-                    processing that never writes to disk, and background model training that keeps the UI responsive.</p>
+                <p>Built <strong>AI in MOS</strong>, a forecasting platform for the plant floor, spanning two
+                    projects.</p>
+
+                
+                <div class="exp-project">
+                    <h4>Predictive Maintenance</h4>
+                    <p>Time-series models over machine sensor history that surface likely failures before they happen.</p>
+                    <p class="exp-metrics"><span class="exp-metric">93% forecast accuracy</span>
+                </div>
+
+                <div class="exp-project">
+                    <h4>Spare-Parts Demand Forecasting</h4>
+                    <p>An ensemble forecaster (Croston's, Holt's, XGBoost, Random Forest, Ridge) with a 0–100 restock
+                        urgency matrix and Isolation Forest anomaly detection.</p>
+                    <p class="exp-metrics"><span class="exp-metric">98% forecast accuracy</span><span
+                            class="exp-metric">XX% lower inventory cost</span></p>
+                </div>
                 <div class="project-buttons">
                     <a href="blogs.html#ford-internship" class="btn-glass">Read Blog</a>
                 </div>
@@ -153,16 +160,12 @@
                 </div>
                 <img src="growthify_photo.jpg" alt="The Growthify office floor" class="exp-banner exp-banner--growthify"
                     width="1200" height="937" loading="lazy" decoding="async">
-                <p>Building Growthify's <strong>multi-franchise CRM and admin platform</strong> end to end — a React +
-                    Vite SPA over a FastAPI service over Supabase Postgres.</p>
-                <p><strong>Backend</strong> — 186 endpoints across 20 feature areas. Every business rule lives in a
-                    Postgres <code>usp_*</code> stored procedure called over Supabase RPC, with the API as a thin typed
-                    layer handling JWT auth, role checks and rate-limited login.</p>
-                <p><strong>Frontend</strong> — 20 master screens plus leads, quotations, invoices, payments, orders, HR
-                    and audit logs, all generated from declarative config rather than hand-written pages, gated by a
-                    role → module → action permission matrix.</p>
-                <p>Every user-facing string is served from the database, so copy and localisation change without a
-                    redeploy.</p>
+                <p>Building a <strong>multi-franchise CRM and admin platform</strong> end to end — React + Vite over
+                    FastAPI over Supabase Postgres.</p>
+                <p><strong>Backend</strong> — 186 endpoints across 20 feature areas, with every business rule in a
+                    Postgres <code>usp_*</code> procedure and the API a thin typed layer over it.</p>
+                <p><strong>Frontend</strong> — 20 master screens plus leads, invoices, orders, HR and audit logs, all
+                    generated from declarative config and gated by a role → module → action matrix.</p>
                 <div class="project-buttons">
                     <a href="blogs.html#growthify-internship" class="btn-glass">Read Blog</a>
                 </div>

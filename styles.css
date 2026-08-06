@@ -247,8 +247,8 @@ html {
 
 /* Contact Me + Blogs buttons — sized relative to the resume button */
 .button-row .contact-me {
-    padding: 14px 30px;
-    font-size: 1.20rem;
+    padding: 11px 24px;
+    font-size: 0.96rem;
 }
 
 /* ===========================
@@ -428,15 +428,22 @@ section {
     margin-bottom: 18px;
 }
 
-/* Logos are normalised by height, so a wide wordmark and a square
-   glyph sit on the same baseline. No fade mask (see .about img). */
-.exp-logo {
-    height: 46px;
+/* Logos are normalised by height, so a wide wordmark and a square glyph
+   sit on the same baseline.
+   NOTE: these must stay scoped under `.about` (specificity 0-2-0) to beat
+   `.about img` (0-1-1), which forces width:100% and the edge-fade mask.
+   Unscoped `.exp-logo` loses and the images blow up with faded edges. */
+.about .exp-logo {
+    height: 42px;
     width: auto;
+    max-width: 45%;
+    object-fit: contain;
     flex: 0 0 auto;
     border-radius: 6px;
     -webkit-mask-image: none;
     mask-image: none;
+    -webkit-mask-composite: unset;
+    mask-composite: add;
 }
 
 .exp-heading {
@@ -458,24 +465,64 @@ section {
 
 /* One banner ratio for every card, so a portrait snapshot and a
    landscape one don't fight each other. object-position picks the
-   subject out of each frame. */
-.exp-banner {
+   subject out of each frame. Scoped under .about — see .exp-logo note. */
+.about .exp-banner {
+    display: block;
     width: 100%;
+    max-width: 300px;
     height: auto;
     aspect-ratio: 16 / 9;
     object-fit: cover;
-    border-radius: 12px;
-    margin-bottom: 20px;
+    border-radius: 10px;
+    margin-bottom: 18px;
     -webkit-mask-image: none;
     mask-image: none;
+    -webkit-mask-composite: unset;
+    mask-composite: add;
 }
 
-.exp-banner--ford {
+.about .exp-banner--ford {
     object-position: center 62%;
 }
 
-.exp-banner--growthify {
+.about .exp-banner--growthify {
     object-position: center 78%;
+}
+
+/* Sub-projects inside an experience card */
+.exp-project {
+    margin: 0 0 16px;
+    padding-left: 14px;
+    border-left: 2px solid rgba(255, 255, 255, 0.16);
+}
+
+.exp-project h4 {
+    margin: 0 0 5px;
+    font-size: clamp(0.9rem, 2vw, 1.02rem);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+}
+
+.about .exp-project p {
+    margin: 0 0 8px;
+}
+
+.exp-metrics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 !important;
+}
+
+.exp-metric {
+    font-size: clamp(0.7rem, 1.7vw, 0.8rem);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    padding: 3px 10px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    white-space: nowrap;
 }
 
 .about code {
@@ -493,8 +540,8 @@ section {
         gap: 12px;
     }
 
-    .exp-logo {
-        height: 38px;
+    .about .exp-logo {
+        height: 34px;
     }
 }
 
