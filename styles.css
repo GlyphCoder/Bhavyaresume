@@ -211,12 +211,17 @@ html {
     gap: 8px;
     align-items: flex-end;
     flex-direction: column;
-    max-width: min(260px, calc(100vw - 28px));
+    max-width: calc(100vw - 28px);
 }
 
+/* Wraps instead of overflowing the viewport once the two pills no longer
+   fit side by side on narrow screens. */
 .button-row {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
     gap: 8px;
+    max-width: 100%;
 }
 
 .download-resume,
@@ -245,11 +250,8 @@ html {
     border-color: rgba(255, 255, 255, 0.35);
 }
 
-/* Contact Me + Blogs buttons — sized relative to the resume button */
-.button-row .contact-me {
-    padding: 11px 24px;
-    font-size: 0.96rem;
-}
+/* Contact Me, Blogs and Download Resume all share the base pill sizing
+   above, so the three buttons line up as one consistent set. */
 
 /* ===========================
    Glass Morphism Cards
@@ -875,10 +877,6 @@ footer p {
         font-size: 0.75rem;
     }
 
-    .button-row .contact-me {
-        padding: 9px 18px;
-        font-size: 1.04rem;
-    }
 
     section {
         padding: 48px 16px;
@@ -931,10 +929,6 @@ footer p {
         font-size: 0.7rem;
     }
 
-    .button-row .contact-me {
-        padding: 8px 16px;
-        font-size: 0.95rem;
-    }
 
     section {
         padding: 36px 12px;
@@ -983,10 +977,6 @@ footer p {
         font-size: 0.65rem;
     }
 
-    .button-row .contact-me {
-        padding: 8px 11px;
-        font-size: 0.89rem;
-    }
 
     section {
         padding: 28px 10px;
