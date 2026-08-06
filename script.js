@@ -6,36 +6,38 @@
    - Hero click scroll
    ========================================================= */
 
-$(document).ready(function () {
+/* This file is loaded with `defer`, so the DOM is ready by the time it runs. */
 
-    /* ── Fix page-refresh scroll-to-hash jump (index.html only) ── */
-    if (window.location.pathname.indexOf('blogs.html') === -1 && window.location.hash) {
-        history.replaceState(null, null, '');
-        window.scrollTo(0, 0);
-    }
+/* ── Fix page-refresh scroll-to-hash jump (index.html only) ── */
+if (window.location.pathname.indexOf('blogs.html') === -1 && window.location.hash) {
+    history.replaceState(null, null, '');
+    window.scrollTo(0, 0);
+}
 
-    /* ── AOS: Scroll-triggered animations ── */
-    AOS.init({
-        duration: 850,
-        once: false,
-        mirror: true,
-        offset: 80,
-        easing: 'ease-out-quart',
-        anchorPlacement: 'top-bottom',
-    });
-
-    /* ── Hero click → smooth scroll to About ── */
-    $('.hero-content h1').on('click', function () {
-        $('html, body').animate(
-            { scrollTop: $('.about-section').offset().top - 60 },
-            900,
-            'swing'
-        );
-    });
-
-    /* ── Init features ── */
-    initTiltCards();
+/* ── AOS: Scroll-triggered animations ── */
+AOS.init({
+    duration: 850,
+    once: false,
+    mirror: true,
+    offset: 80,
+    easing: 'ease-out-quart',
+    anchorPlacement: 'top-bottom',
 });
+
+/* ── Hero click → smooth scroll to About ── */
+(function () {
+    const heading = document.querySelector('.hero-content h1');
+    const about = document.querySelector('.about-section');
+    if (!heading || !about) return;
+
+    heading.addEventListener('click', function () {
+        const top = about.getBoundingClientRect().top + window.scrollY - 60;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+    });
+})();
+
+/* ── Init features ── */
+initTiltCards();
 
 
 /* =========================================================

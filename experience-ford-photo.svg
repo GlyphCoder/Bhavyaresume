@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="400" height="240" viewBox="0 0 400 240">
-  <rect width="400" height="240" fill="#1a1a1a"/>
-  <rect x="8" y="8" width="384" height="224" fill="none" stroke="#555" stroke-width="2" stroke-dasharray="10 8"/>
-  <path d="M140 150 l40-50 30 35 20-22 50 60z" fill="#3a3a3a"/>
-  <circle cx="160" cy="90" r="14" fill="#3a3a3a"/>
-  <text x="200" y="200" font-family="Montserrat, sans-serif" font-size="16" fill="#777777" text-anchor="middle">Photo Placeholder</text>
-</svg>

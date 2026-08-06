@@ -5,15 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blogs - Bhavya Mehul Shah</title>
+    <meta name="description"
+        content="Blogs and write-ups by Bhavya Shah on internships at Ford Motor Company and Growthify, hackathon wins, and TinyML research.">
+    <meta name="theme-color" content="#000000">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Raleway:wght@300;600&display=swap"
         rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="styles.css" rel="stylesheet">
-
-    <!-- jQuery CDN -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 
 <body>
@@ -57,13 +60,54 @@
                 <h2>Summer Intern at Ford Motor Company</h2>
                 <p class="text-muted small">Sanand Engine Assembly Plant (SaEP), Gujarat • June 2026 – July 2026</p>
 
+                <!-- Horizontal Image Slider -->
+                <div class="blog-image-slider">
+                    <img src="ford_photo.jpg" alt="Bhavya Shah at the Ford Sanand Engine Plant entrance"
+                        class="slider-img" width="825" height="1100" loading="lazy" decoding="async">
+                    <img src="ford_logo.png" alt="Ford Motor Company logo" class="slider-img slider-img--contain" width="600" height="226"
+                        loading="lazy" decoding="async">
+                </div>
+
                 <p>I spent two months as a Summer Intern at the Ford Sanand Engine Assembly Plant, working on
                     <strong>AIinMOS</strong> — a forecasting platform that brings machine and material planning together
                     into a single interface for the plant floor.</p>
-                <p>The Machine Forecasting Module used time-series models over historical machine data to flag likely
-                    failures before they happened, shifting maintenance from reactive to proactive. The Material Module
-                    analyzed spare part consumption, BOM structures, and supplier lead times to help the team optimize
-                    procurement and cut down on excess stock.</p>
+
+                <h3>The problem</h3>
+                <p>Spare-part planning at the plant lived across a pile of disconnected Excel files: transaction
+                    histories per year, an item master, purchase orders, a categorisation map. Restocking decisions got
+                    made <em>after</em> stock hit a critical threshold, which meant machine downtime and expensive rush
+                    freight. The forecasting that did exist was a simple moving average — which is exactly the wrong
+                    tool for spare parts, because their demand is intermittent. A part used twice a year gets smeared
+                    into "0.17 per month" and the number stops meaning anything.</p>
+
+                <h3>The Machine Forecasting Module</h3>
+                <p>This half ran time-series models over historical machine data to flag likely failures before they
+                    happened, so maintenance could be scheduled instead of reacted to.</p>
+
+                <h3>The Material Module</h3>
+                <p>No single algorithm forecasts spare-part demand well, so this one runs an ensemble and blends by
+                    each item's actual historical pattern:</p>
+                <ul>
+                    <li><strong>Croston's method</strong> — built for intermittent demand; it separates demand size
+                        from the gap between demands instead of averaging the two together.</li>
+                    <li><strong>Holt's linear trend</strong> — extrapolates a rising or falling trajectory forward.</li>
+                    <li><strong>XGBoost</strong> and <strong>Random Forest</strong> — pick up non-linear structure from
+                        lag features, rolling means and year-over-year trends.</li>
+                    <li><strong>Ridge regression</strong> — a stable regularised baseline to keep the ensemble honest.</li>
+                    <li><strong>Isolation Forest</strong> — unsupervised anomaly detection that flags spikes, dropouts
+                        and erratic usage across the whole SKU catalogue.</li>
+                </ul>
+                <p>On top of the forecast sits a <strong>restock urgency matrix</strong> that scores each part 0–100
+                    from stock on hand, safety stock, lead time versus days of stock remaining, daily consumption
+                    velocity and open purchase orders. Purchase-order data also feeds spend and supplier-concentration
+                    analytics.</p>
+
+                <h3>Engineering it for the shop floor</h3>
+                <p>The whole thing ships as a Plotly Dash app. Files are classified by inspecting their column headers
+                    rather than their filenames, so nobody has to remember a naming convention. Uploaded data is held
+                    in memory and never written to disk. Model training runs in a background daemon thread behind a
+                    lock, so the UI stays responsive with a live progress bar instead of freezing for minutes.</p>
+
                 <p>Working inside a live manufacturing environment taught me how much of applied ML is really about data
                     plumbing, domain conversations with the people who run the machines, and building something the shop
                     floor will actually open every morning.</p>
@@ -71,10 +115,48 @@
 
             <!-- Growthify Internship Blog -->
             <article id="growthify-internship" class="glass-card" data-aos="fade-up" data-aos-duration="900">
-                <h2>Intern at Growthify</h2>
-                <p class="text-muted small">Role, dates, and location here</p>
+                <h2>Full-Stack Developer Intern at Growthify</h2>
+                <p class="text-muted small">Growthify • July 2026 – Present</p>
 
-                <p>Placeholder description here — replace with details about your role and work at Growthify.</p>
+                <!-- Horizontal Image Slider -->
+                <div class="blog-image-slider">
+                    <img src="growthify_photo.jpg" alt="The Growthify office floor" class="slider-img" width="1200"
+                        height="937" loading="lazy" decoding="async">
+                    <img src="growthify_logo.png" alt="Growthify logo" class="slider-img slider-img--contain" width="271" height="270"
+                        loading="lazy" decoding="async">
+                </div>
+
+                <p>At Growthify I'm building a <strong>multi-franchise CRM and admin platform</strong> — the system a
+                    franchise network runs its whole operation on: leads, quotations, invoices, payments, orders,
+                    customers, inspections, HR and audit trails.</p>
+
+                <h3>One straight line, three layers</h3>
+                <p>React + Vite → FastAPI → Supabase Postgres. No ORM, no queue, no service mesh in between. The
+                    frontend talks only to the backend; the backend is the only thing that touches the database.</p>
+
+                <h3>Business logic lives in the database</h3>
+                <p>Every business rule is a Postgres <code>usp_*</code> stored procedure. The FastAPI service — 186
+                    endpoints across 20 feature areas — is a thin typed layer that validates input, applies auth, and
+                    calls those procedures over Supabase RPC. Every table has RLS on with no policies, so only the
+                    server-side <code>service_role</code> key can read anything; the browser never gets near it.</p>
+
+                <h3>Screens as configuration, not code</h3>
+                <p>Twenty master screens plus the transaction screens are declared as data and rendered by shared
+                    components, so adding a screen is a config entry rather than a new page. Two things fall out of
+                    that:</p>
+                <ul>
+                    <li><strong>Permissions everywhere, for free.</strong> A role → module → action matrix over a
+                        16-action vocabulary decides whether each Add / Edit / Status / Export control renders at all —
+                        not just whether it errors when clicked.</li>
+                    <li><strong>No hard-coded copy.</strong> Every user-facing string comes from a message catalogue in
+                        the database, so wording and localisation change without a redeploy.</li>
+                </ul>
+
+                <h3>What I've taken from it</h3>
+                <p>The interesting lesson has been how much leverage you get from deciding where a rule <em>lives</em>.
+                    Putting business logic in the database and screens in config means the surface you actually
+                    hand-write stays small even as the product keeps growing — which is the opposite of how these
+                    admin platforms usually age.</p>
             </article>
 
             <!-- FinShield Hackathon Blog -->
@@ -84,9 +166,9 @@
                 
                 <!-- Horizontal Image Slider -->
                 <div class="blog-image-slider">
-                    <img src="work-finshield-hackathon.jpeg" alt="FinShield Event Picture" class="slider-img">
-                    <img src="project-riskanalyzer.jpeg" alt="RiskAnalyzer Platform Screenshot" class="slider-img">
-                    <img src="project-voxelworld.png" alt="FinShield Presentation Slide" class="slider-img">
+                    <img src="work-finshield-hackathon.jpeg" alt="FinShield Event Picture" class="slider-img" width="1200" height="800" loading="lazy" decoding="async">
+                    <img src="project-riskanalyzer.jpeg" alt="RiskAnalyzer Platform Screenshot" class="slider-img" width="1200" height="573" loading="lazy" decoding="async">
+                    <img src="project-voxelworld.jpg" alt="FinShield Presentation Slide" class="slider-img" width="1200" height="654" loading="lazy" decoding="async">
                 </div>
 
                 <p>Participating in the FinShield Hackathon 2025, organized by the Bank of India in collaboration with IIT Hyderabad, was an incredible journey. Out of 661 applicants, only 72 teams were shortlisted for the final presentations. Our team developed <strong>RiskAnalyzer</strong>, a predictive machine learning system designed to analyze credit default probabilities using non-traditional utility data.</p>
@@ -100,8 +182,8 @@
 
                 <!-- Horizontal Image Slider -->
                 <div class="blog-image-slider">
-                    <img src="work-odoo-ksv-hackathon.png" alt="Odoo x KSV Winning Moment" class="slider-img">
-                    <img src="project-coryd.png" alt="CoRYD Platform Screenshot" class="slider-img">
+                    <img src="work-odoo-ksv-hackathon.jpg" alt="Odoo x KSV Winning Moment" class="slider-img" width="1400" height="1050" loading="lazy" decoding="async">
+                    <img src="project-coryd.jpg" alt="CoRYD Platform Screenshot" class="slider-img" width="1200" height="780" loading="lazy" decoding="async">
                 </div>
 
                 <p>Winning the Odoo x KSV Hackathon 2026 was the biggest result of the year for us. Starting from 836
@@ -122,9 +204,9 @@
                 
                 <!-- Horizontal Image Slider -->
                 <div class="blog-image-slider">
-                    <img src="project-storyarc-ai.png" alt="StoryArc AI Project Cover" class="slider-img">
-                    <img src="project-resqnet.png" alt="Hack-a-Mind Presentation Pitch" class="slider-img">
-                    <img src="project-riskanalyzer.jpeg" alt="Collaborative Working Session" class="slider-img">
+                    <img src="project-storyarc-ai.jpg" alt="StoryArc AI Project Cover" class="slider-img" width="1200" height="656" loading="lazy" decoding="async">
+                    <img src="project-resqnet.jpg" alt="Hack-a-Mind Presentation Pitch" class="slider-img" width="1200" height="602" loading="lazy" decoding="async">
+                    <img src="project-riskanalyzer.jpeg" alt="Collaborative Working Session" class="slider-img" width="1200" height="573" loading="lazy" decoding="async">
                 </div>
 
                 <p>At the Hack-a-Mind Hackathon 2026, sponsored by Pet Pooja and Quantloop.tech, our team won the Runner Up title and secured a track prize. We designed <strong>StoryArc AI</strong>, an episodic narrative generation engine powered by Google Gemini AI, designed to analyze and format vertical 90-second mobile show episodes.</p>
@@ -138,9 +220,9 @@
                 
                 <!-- Horizontal Image Slider -->
                 <div class="blog-image-slider">
-                    <img src="work-dotslash-9.jpeg" alt="Dotslash Winner Group Photo" class="slider-img">
-                    <img src="project-resqnet.png" alt="ResQnet Platform Features" class="slider-img">
-                    <img src="project-voxelworld.png" alt="Dotslash Coding Session" class="slider-img">
+                    <img src="work-dotslash-9.jpeg" alt="Dotslash Winner Group Photo" class="slider-img" width="825" height="1100" loading="lazy" decoding="async">
+                    <img src="project-resqnet.jpg" alt="ResQnet Platform Features" class="slider-img" width="1200" height="602" loading="lazy" decoding="async">
+                    <img src="project-voxelworld.jpg" alt="Dotslash Coding Session" class="slider-img" width="1200" height="654" loading="lazy" decoding="async">
                 </div>
 
                 <p>Winning the Dotslash 9.0 Hackathon organized by ACM NIT Surat was one of the highlight moments of the year. Competing with 800+ teams and 2,400+ participants across India, we developed <strong>ResQNet</strong>, a Web3-enabled collaborative emergency management and dispatch portal linking disaster survivors to dispatch centers and local volunteer responders.</p>
@@ -154,8 +236,8 @@
                 
                 <!-- Horizontal Image Slider -->
                 <div class="blog-image-slider">
-                    <img src="project-voxelworld.png" alt="TinyML Architecture Diagram" class="slider-img">
-                    <img src="project-storyarc-ai.png" alt="Grid Trojan Detection Accuracy Curves" class="slider-img">
+                    <img src="project-voxelworld.jpg" alt="TinyML Architecture Diagram" class="slider-img" width="1200" height="654" loading="lazy" decoding="async">
+                    <img src="project-storyarc-ai.jpg" alt="Grid Trojan Detection Accuracy Curves" class="slider-img" width="1200" height="656" loading="lazy" decoding="async">
                 </div>
 
                 <p>This research paper, titled <em>"TinyML-Based Trojan Detection Framework in Smart Grid Systems"</em>, was accepted and published at the 15th International Smart Grids Conference (2025). The project focuses on deploying hardware-constrained TinyML classifiers onto edge power nodes to intercept and neutralize network Trojan injections in real time.</p>
@@ -169,8 +251,8 @@
                 
                 <!-- Horizontal Image Slider -->
                 <div class="blog-image-slider">
-                    <img src="project-storyarc-ai.png" alt="Multi-Agent RL Simulation Graph" class="slider-img">
-                    <img src="project-riskanalyzer.jpeg" alt="Drone Field Test Concept" class="slider-img">
+                    <img src="project-storyarc-ai.jpg" alt="Multi-Agent RL Simulation Graph" class="slider-img" width="1200" height="656" loading="lazy" decoding="async">
+                    <img src="project-riskanalyzer.jpeg" alt="Drone Field Test Concept" class="slider-img" width="1200" height="573" loading="lazy" decoding="async">
                 </div>
 
                 <p>Our preprint paper, <em>"Machine and Reinforcement Learning-Based Collaborative Framework for Drone Navigation in Battlefield Environment"</em>, outlines a multi-agent deep Q-network strategy to optimize drone swarm search paths and collision avoidance profiles under simulated radar jamming scenarios.</p>
@@ -185,9 +267,8 @@
         <p class="mb-0">© 2025 Bhavya Shah. All rights reserved.</p>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="script.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+    <script src="script.js" defer></script>
 </body>
 
 </html>

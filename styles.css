@@ -416,6 +416,89 @@ section {
 }
 
 /* ===========================
+   Experience Cards
+   =========================== */
+.exp-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+/* Logos are normalised by height, so a wide wordmark and a square
+   glyph sit on the same baseline. Scoped under .about to outrank
+   `.about img`, which forces width:100% and the edge-fade mask. */
+.about .exp-logo {
+    height: 46px;
+    width: auto;
+    max-width: 45%;
+    object-fit: contain;
+    flex: 0 0 auto;
+    border-radius: 6px;
+    -webkit-mask-image: none;
+    mask-image: none;
+}
+
+.exp-heading {
+    min-width: 0;
+}
+
+.exp-heading h3 {
+    margin: 0 0 4px;
+    font-size: clamp(1rem, 2.4vw, 1.3rem);
+    line-height: 1.3;
+}
+
+.exp-meta {
+    margin: 0;
+    font-size: clamp(0.75rem, 1.8vw, 0.9rem);
+    line-height: 1.5;
+    opacity: 0.75;
+}
+
+/* One banner ratio for every card, so a portrait snapshot and a
+   landscape one don't fight each other. object-position picks the
+   subject out of each frame. */
+.about .exp-banner {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    -webkit-mask-image: none;
+    mask-image: none;
+}
+
+.about .exp-banner--ford {
+    object-position: center 62%;
+}
+
+.about .exp-banner--growthify {
+    object-position: center 78%;
+}
+
+.about code {
+    font-size: 0.9em;
+    padding: 1px 5px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.10);
+    color: inherit;
+}
+
+@media (max-width: 480px) {
+    .exp-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .about .exp-logo {
+        height: 38px;
+    }
+}
+
+/* ===========================
    Projects (Skill) Section
    =========================== */
 .skill-title {
@@ -652,10 +735,18 @@ footer p {
 }
 
 /* ===========================
-   AOS / Scroll animation tweaks
+   Reduced motion — honour the OS setting
    =========================== */
-[data-aos] {
-    /* Ensure elements not yet revealed don't flash */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }
 
 /* ===========================
@@ -896,6 +987,43 @@ footer p {
 
 .blog-image-slider::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.3);
+}
+
+/* Logos are art, not photographs — fit them whole instead of cropping. */
+.slider-img--contain {
+    object-fit: contain !important;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 26px;
+}
+
+/* ── Blog article typography ── */
+/* Bootstrap's .text-muted (#6c757d) fails contrast on a near-black card. */
+.blogs-section .text-muted {
+    color: rgba(255, 255, 255, 0.62) !important;
+}
+
+.blogs-section article h3 {
+    font-size: clamp(1rem, 2.4vw, 1.25rem);
+    margin: 26px 0 10px;
+    letter-spacing: 0.01em;
+}
+
+.blogs-section article ul {
+    padding-left: 1.2em;
+    margin-bottom: 1rem;
+}
+
+.blogs-section article li {
+    margin-bottom: 8px;
+    line-height: 1.7;
+}
+
+.blogs-section article code {
+    font-size: 0.9em;
+    padding: 1px 5px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.10);
+    color: inherit;
 }
 
 .slider-img {
