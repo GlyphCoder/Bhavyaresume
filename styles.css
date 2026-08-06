@@ -231,10 +231,10 @@ html {
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.18);
     color: white;
-    padding: 10px 22px;
+    padding: 9.7px 21.3px;
     border-radius: 50px;
     text-decoration: none;
-    font-size: 0.88rem;
+    font-size: 0.85rem;
     font-weight: 500;
     letter-spacing: 0.02em;
     transition: background 0.3s ease, transform 0.25s ease, border-color 0.3s ease;
@@ -423,6 +423,20 @@ section {
 /* ===========================
    Experience Cards
    =========================== */
+/* Experience cards are flex columns so the Read Blog button can be pushed
+   to the bottom edge, keeping both cards' buttons aligned no matter how
+   much text sits above them. Scoped to #experience so the About Me cards
+   keep their existing layout. */
+#experience .about {
+    display: flex;
+    flex-direction: column;
+}
+
+#experience .project-buttons {
+    margin-top: auto;
+    padding-top: 8px;
+}
+
 .exp-header {
     display: flex;
     align-items: center;
@@ -472,6 +486,8 @@ section {
     display: block;
     width: 100%;
     max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
     height: auto;
     aspect-ratio: 16 / 9;
     object-fit: cover;
