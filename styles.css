@@ -209,19 +209,32 @@ html {
     z-index: 1000;
     display: flex;
     gap: 8px;
-    align-items: flex-end;
+    /* stretch (not flex-end) is what makes the Connect/Blogs pill and the
+       Download Resume pill share one width: the fixed container shrinks to fit
+       its widest child, then both children stretch to match it. */
+    align-items: stretch;
     flex-direction: column;
     max-width: calc(100vw - 28px);
 }
 
-/* Wraps instead of overflowing the viewport once the two pills no longer
-   fit side by side on narrow screens. */
+/* Connect + Blogs are one pill with two clickable halves. The row itself
+   carries the glass chrome; the anchors inside are bare segments split by a
+   divider. overflow:hidden keeps each half's hover tint inside the rounding. */
 .button-row {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    gap: 8px;
     max-width: 100%;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 50px;
+    overflow: hidden;
+    transition: transform 0.25s ease, border-color 0.3s ease;
+}
+
+.button-row:hover {
+    transform: translateY(-3px);
+    border-color: rgba(255, 255, 255, 0.35);
 }
 
 .download-resume,
@@ -239,6 +252,8 @@ html {
     letter-spacing: 0.02em;
     transition: background 0.3s ease, transform 0.25s ease, border-color 0.3s ease;
     white-space: nowrap;
+    /* the pills are stretched to a shared width, so labels need centring */
+    text-align: center;
 }
 
 .download-resume:hover,
@@ -250,8 +265,32 @@ html {
     border-color: rgba(255, 255, 255, 0.35);
 }
 
-/* Contact Me, Blogs and Download Resume all share the base pill sizing
-   above, so the three buttons line up as one consistent set. */
+/* The base rule above still styles a lone .contact-me as a standalone pill —
+   blogs.html uses one for its "Portfolio" link. Inside .button-row the anchors
+   drop that chrome and become segments of the shared pill instead.
+   Padding is deliberately left to the base rule so the responsive padding in
+   the media queries below keeps applying. */
+.button-row .contact-me {
+    flex: 1;
+    background: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: 0;
+    border-radius: 0;
+}
+
+/* the vertical rule dividing the two halves */
+.button-row .contact-me+.contact-me {
+    border-left: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Each half tints on its own, but the lift belongs to the whole pill
+   (.button-row:hover) — a single segment rising out of it would look broken. */
+.button-row .contact-me:hover {
+    background: rgba(255, 255, 255, 0.18);
+    transform: none;
+    border-color: rgba(255, 255, 255, 0.18);
+}
 
 /* ===========================
    Glass Morphism Cards
@@ -370,6 +409,126 @@ section {
 
 .hero-content h1:hover {
     transform: scale(1.03);
+}
+
+/* Entrance: the heading free-falls in from the top-left and bounces its way
+   down a slope to its resting spot at the bottom-right.
+   The motion is split across two elements so the two axes can be eased
+   independently — .hero-content carries the steady rightward travel, the h1
+   carries the gravity-driven vertical bounce plus the tumble. Neither uses a
+   fill-mode, so once the animation ends both elements sit at their natural
+   position and the :hover scale above takes over cleanly. */
+.hero-content {
+    animation: hero-slide-right 2.4s linear;
+}
+
+.hero-content h1 {
+    /* inline-block shrinks the box to hug the text so the rotation pivots
+       about the heading itself. Left as a block it would span the full column
+       width and the right-aligned text would swing through a huge arc. */
+    display: inline-block;
+    max-width: 100%;
+    animation: hero-bounce-down 2.4s;
+}
+
+@keyframes hero-slide-right {
+    0% {
+        transform: translateX(-62vw);
+    }
+
+    20% {
+        transform: translateX(-47vw);
+    }
+
+    44% {
+        transform: translateX(-33vw);
+    }
+
+    64% {
+        transform: translateX(-21vw);
+    }
+
+    80% {
+        transform: translateX(-12vw);
+    }
+
+    92% {
+        transform: translateX(-5vw);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* Each impact lands lower than the last, which is what reads as a slope
+   rather than a flat floor. Falls accelerate (ease-in), rebounds decelerate
+   (ease-out), and both the drop height and the rebound decay each bounce.
+
+   The heading also tumbles rather than staying level. It enters tilted back,
+   rotates clockwise through the drop (matching the down-and-right direction of
+   travel), then every impact kicks the tilt the other way. The swing alternates
+   sign and decays — 16° → 8° → 6° → 4° → 2.5° → 1.2° — so it rocks itself flat
+   by the time it settles. */
+@keyframes hero-bounce-down {
+    0% {
+        transform: translateY(-58vh) rotate(-16deg);
+        animation-timing-function: ease-in;
+    }
+
+    20% {
+        transform: translateY(-34vh) rotate(-4deg);
+        animation-timing-function: ease-out;
+    }
+
+    30% {
+        transform: translateY(-45vh) rotate(8deg);
+        animation-timing-function: ease-in;
+    }
+
+    44% {
+        transform: translateY(-20vh) rotate(2deg);
+        animation-timing-function: ease-out;
+    }
+
+    52% {
+        transform: translateY(-28vh) rotate(-6deg);
+        animation-timing-function: ease-in;
+    }
+
+    64% {
+        transform: translateY(-10vh) rotate(-1.5deg);
+        animation-timing-function: ease-out;
+    }
+
+    70% {
+        transform: translateY(-15vh) rotate(4deg);
+        animation-timing-function: ease-in;
+    }
+
+    80% {
+        transform: translateY(-4vh) rotate(1deg);
+        animation-timing-function: ease-out;
+    }
+
+    85% {
+        transform: translateY(-7vh) rotate(-2.5deg);
+        animation-timing-function: ease-in;
+    }
+
+    92% {
+        transform: translateY(-1vh) rotate(-0.6deg);
+        animation-timing-function: ease-out;
+    }
+
+    95.5% {
+        transform: translateY(-2.4vh) rotate(1.2deg);
+        animation-timing-function: ease-in;
+    }
+
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
 }
 
 
