@@ -420,6 +420,52 @@ section {
     line-height: 1.7;
 }
 
+/* Education is a real two-column grid rather than the fixed-pixel spacers it
+   used to use, which drifted as the card resized. The right column is sized
+   to its widest item, so "2023-2027" and "CGPA: 8.71" always share a column
+   and sit directly above one another no matter the screen ratio; nowrap keeps
+   each one whole instead of letting "8.71" fall onto the next line. The left
+   column takes the remaining space (1fr) and wraps internally if it has to,
+   so a long degree name can never push the right column out of alignment.
+   min-width:0 lets that column actually shrink below its content width. */
+.about p.edu-entry {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 1.5rem;
+    row-gap: 0.15rem;
+    align-items: baseline;
+}
+
+.edu-entry .edu-name {
+    min-width: 0;
+}
+
+.edu-entry .edu-meta {
+    white-space: nowrap;
+    text-align: right;
+}
+
+/* On a card too narrow for two columns, collapse to a single column so each
+   value sits under its own label instead of the two colliding. Keyed to the
+   card's width, not the viewport's: the card is full width in one-column
+   layouts and about half that in two-column ones, so the same screen width
+   can produce either. The wrapper exists purely to carry the containment —
+   putting it on `.about` would apply containment to the experience cards too. */
+.edu-block {
+    container-type: inline-size;
+}
+
+@container (max-width: 340px) {
+    .about p.edu-entry {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .edu-entry .edu-meta {
+        text-align: left;
+        opacity: 0.85;
+    }
+}
+
 /* ===========================
    Experience Cards
    =========================== */
